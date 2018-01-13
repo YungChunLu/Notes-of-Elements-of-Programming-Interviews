@@ -35,10 +35,9 @@ Strategy getStrategy(vector<int> S){
         Strategy L = getStrategy(left_S);
         Strategy R = getStrategy(right_S);
         // Merge results from left and right vectors
-        Strategy LR = Strategy{R.highest-L.lowest, R.highest, L.lowest};
-        Strategy RL = Strategy{L.highest-R.lowest, L.highest, R.lowest};
+        Strategy Merge = Strategy{R.highest-L.lowest, R.highest, L.lowest};
         // Get the best result
-        return max({L, R, LR, RL},
+        return max({L, R, Merge},
                    [](const Strategy a, const Strategy b){
                        return a.earning < b.earning;
                    });
