@@ -54,6 +54,15 @@ Strategy getStrategy(vector<int> S){
 * Maximum Profit - Solution2
 
 ```cpp
+// n: The size of input
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. S = [] => error
+//     2. S = [6] => {0, 6, 6}
+//     3. S = [10, 9, 7] => {0, 7, 7}
+//     4. S = [3, 9, 10, 2] => {7, 10, 3}
 struct Strategy{
     int earning, lowest;
 };
