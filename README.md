@@ -14,8 +14,14 @@
 
 ```cpp
 // n: The size of input
-// Time Complexity O(nlogn)
-// Space Complexity O(logn)
+// Time Complexity: O(nlogn)
+// Space Complexity: O(logn)
+
+// Test Case:
+//     1. S = [] => error
+//     2. S = [6] => {0, 6, 6}
+//     3. S = [10, 9, 7] => {0, 10, 10}
+//     4. S = [3, 9, 10, 2] => {7, 10, 3}
 struct Strategy{
     int earning, highest, lowest;
 };
