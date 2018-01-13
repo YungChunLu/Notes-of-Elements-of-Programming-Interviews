@@ -10,7 +10,7 @@
 
 ### Questions
 
-* Maximum Profit
+* Maximum Profit - Solution1
 
 ```cpp
 // n: The size of input
@@ -48,6 +48,27 @@ Strategy getStrategy(vector<int> S){
                        return a.earning < b.earning;
                    });
     }
+};
+```
+
+* Maximum Profit - Solution2
+
+```cpp
+struct Strategy{
+    int earning, lowest;
+};
+
+Strategy getStrategy(vector<int> S){
+    int best=0, lowest=S.front();
+    for (vector<int>::iterator it=++S.begin(); it<S.end(); ++it) {
+        int profit = *it-lowest;
+        if (profit > best) {
+            best = profit;
+        } else if (*it < lowest){
+            lowest = *it;
+        }
+    }
+    return {best, lowest};
 };
 ```
 
