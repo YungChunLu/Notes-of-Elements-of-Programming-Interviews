@@ -15,7 +15,7 @@
 ```cpp
 // n: The size of input
 // Time Complexity: O(nlogn)
-// Space Complexity: O(logn)
+// Space Complexity: O(nlogn)
 
 // Test Case:
 //     1. S = [] => error
