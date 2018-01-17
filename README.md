@@ -1,5 +1,3 @@
-# Introduction
-
 ### General steps for cracking an interview question
 
 1. Ask for the input format.
