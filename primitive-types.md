@@ -61,5 +61,29 @@ short Parity(unsigned long x){
 }
 ```
 
+* Solution 2 - erase lowest bit
+
+```
+// k: The number of 1 in the word
+// Time Complexity: O(k)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. x = 0 => 0
+//     2. x = 1 => 1
+//     3. x = 4 => 1
+//     4. x = 5 => 0
+
+
+short Parity(unsigned long x){
+    short parity = 0;
+    while (x) {
+        x &= (x-1);
+        parity += 1;
+    }
+    return parity;
+}
+```
+
 
 
