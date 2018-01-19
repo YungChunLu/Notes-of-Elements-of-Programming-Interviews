@@ -63,7 +63,7 @@ short Parity(unsigned long x){
 
 * Solution 2 - erase lowest bit
 
-```
+```cpp
 // k: The number of 1 in the word
 // Time Complexity: O(k)
 // Space Complexity: O(1)
