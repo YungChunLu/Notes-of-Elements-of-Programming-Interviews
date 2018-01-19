@@ -79,7 +79,7 @@ short Parity(unsigned long x){
     short parity = 0;
     while (x) {
         x &= (x-1);
-        parity += 1;
+        parity ^= 1;
     }
     return parity;
 }
