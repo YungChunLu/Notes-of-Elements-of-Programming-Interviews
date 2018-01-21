@@ -50,7 +50,6 @@ short CountBits(unsigned x){
 //     3. x = 4 => 1
 //     4. x = 5 => 0
 
-
 short Parity(unsigned long x){
     short parity = 0;
     while (x) {
@@ -74,7 +73,6 @@ short Parity(unsigned long x){
 //     3. x = 4 => 1
 //     4. x = 5 => 0
 
-
 short Parity(unsigned long x){
     short parity = 0;
     while (x) {
@@ -88,6 +86,16 @@ short Parity(unsigned long x){
 * Solution 3 - precomputed table
 
 ```cpp
+// n: The bits of input, L: The bits of table
+// Time Complexity: O(n/L)
+// Space Complexity: O(2^L)
+
+// Test Case:
+//     1. x = 0 => 0
+//     2. x = 511 => 1
+//     3. x = 1024 => 1
+//     4. x = 1023 => 0
+
 array<short, 1 << 16> BuildTable(){
     array<short, 1 << 16> table;
     for(int i = 0; i < (1 << 16); i++){
@@ -103,6 +111,30 @@ short ParityByTable(unsigned long x, const array<short, 1 << 16> table){
            table[(x >> (2 * Bits)) & Mask] ^
            table[(x >> Bits) & Mask] ^
            table[x & Mask];
+}
+```
+
+* Solution 4 - associative property
+
+```cpp
+// n: The bits of input
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. x = 0 => 0
+//     2. x = 511 => 1
+//     3. x = 1024 => 1
+//     4. x = 1023 => 0
+
+short ParityByAssociative(unsigned long x){
+    x ^= x >> 32;
+    x ^= x >> 16;
+    x ^= x >> 8;
+    x ^= x >> 4;
+    x ^= x >> 2;
+    x ^= x >> 1;
+    return x & 0x1;
 }
 ```
 
