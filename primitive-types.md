@@ -35,7 +35,7 @@ short CountBits(unsigned x){
 }
 ```
 
-### Compute the parity of a binary word
+### 4-1 Compute the parity of a binary word
 
 * Solution 1 - brute force
 
@@ -135,6 +135,20 @@ short ParityByAssociative(unsigned long x){
     x ^= x >> 2;
     x ^= x >> 1;
     return x & 0x1;
+}
+```
+
+### 4-1 Variant
+
+* Right propagate the rightmost set bit
+
+```cpp
+// n: The bits of input
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+unsigned long RightPropagate(unsigned long x){
+    return x | (x - 1);
 }
 ```
 
