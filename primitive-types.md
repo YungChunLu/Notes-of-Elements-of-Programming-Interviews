@@ -85,5 +85,26 @@ short Parity(unsigned long x){
 }
 ```
 
+* Solution 3 - precomputed table
+
+```cpp
+array<short, 1 << 16> BuildTable(){
+    array<short, 1 << 16> table;
+    for(int i = 0; i < (1 << 16); i++){
+        table[i] = Parity(i);
+    }
+    return table;
+}
+
+short ParityByTable(unsigned long x, const array<short, 1 << 16> table){
+    const int Mask = 0xFFFF;
+    const int Bits = 16;
+    return table[x >> (3 * Bits)] ^
+           table[(x >> (2 * Bits)) & Mask] ^
+           table[(x >> Bits) & Mask] ^
+           table[x & Mask];
+}
+```
+
 
 
