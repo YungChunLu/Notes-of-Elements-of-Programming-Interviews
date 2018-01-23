@@ -146,6 +146,11 @@ short ParityByAssociative(unsigned long x){
 // Time Complexity: O(1)
 // Space Complexity: O(1)
 
+// Test Case:
+//    1. x = 0x0f00 => 0x0fff
+//    2. x = 0x1a00 => 0x1bff
+//    3. x = 0xfab0 => 0xfabf
+//    4. x = 0xfac0 => 0xfaff
 unsigned long RightPropagate(unsigned long x){
     return x | (x - 1);
 }
@@ -157,8 +162,29 @@ unsigned long RightPropagate(unsigned long x){
 // Time Complexity: O(1)
 // Space Complexity: O(1)
 
+// Test Case:
+//    1. x = 77, y = 64 => 13
+//    2. x = 77, y = 1 => 0
+//    3. x = 77, y = 2 => 1
+//    4. x = 77, y = 128 => 77
 unsigned int ModPower2(unsigned int x, unsigned int y){
     return x & (y - 1);
+}
+```
+
+* Is power of 2
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. x = 77 => 0
+//    2. x = 4 => 1
+//    3. x = 1 => 1
+//    4. x = 0 => 0
+bool IsPower2(unsigned int x){
+    return x == 0 ? false : (x & (x-1)) == 0;
 }
 ```
 
