@@ -143,12 +143,22 @@ short ParityByAssociative(unsigned long x){
 * Right propagate the rightmost set bit
 
 ```cpp
-// n: The bits of input
 // Time Complexity: O(1)
 // Space Complexity: O(1)
 
 unsigned long RightPropagate(unsigned long x){
     return x | (x - 1);
+}
+```
+
+* Mod a power of 2
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+unsigned int ModPower2(unsigned int x, unsigned int y){
+    return x & (y - 1);
 }
 ```
 
