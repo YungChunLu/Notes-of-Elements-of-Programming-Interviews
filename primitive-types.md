@@ -219,5 +219,31 @@ double Power(double x, int y){
 }
 ```
 
+### 4-8 Reverse Digits
+
+```cpp
+// n: The digits of x
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. x = 3 => 3
+//    2. x = 315 => 513
+//    3. x = -315=> -513
+long Reverse(int x){
+    bool is_negative = false;
+    if (x < 0){
+        x *= -1;
+        is_negative = true;
+    }
+    int ans = 0;
+    while (x){
+        ans = ans * 10 + (x % 10);
+        x /= 10;
+    }
+    return is_negative ? -ans : ans;
+}
+```
+
 
 
