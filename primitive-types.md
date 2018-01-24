@@ -188,5 +188,36 @@ bool IsPower2(unsigned int x){
 }
 ```
 
+### 4-7 Compute x^y
+
+* Solution
+
+```cpp
+// n: The bits of y
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. x = 2.0, y = -2 => 0.25
+//    2. x = 2.0, y = 0 => 1.0
+//    3. x = 2.0, y = 2 => 4.0
+double Power(double x, int y){
+    double ans = 1;
+    if (y < 0){
+        x = 1.0 / x;
+        y *= -1;
+    };
+    while(y){
+        if ((y & 0x1) == 1){
+            ans *= x;
+            y -= 1;
+        }
+        x *= x;
+        y = y >> 1;
+    }
+    return ans;
+}
+```
+
 
 
