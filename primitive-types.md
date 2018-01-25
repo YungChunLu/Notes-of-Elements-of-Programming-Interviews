@@ -212,6 +212,42 @@ long SwapBits(long x, int i, int j){
 }
 ```
 
+### 4-3 Reverse Bits
+
+* Solution
+
+```cpp
+// n: The bits of input, L: The bits of table
+// Time Complexity: O(n/L)
+// Space Complexity: O(2^L)
+
+// Test Case:
+//    1. x = 0x1221 => 0x8448 0000 0000 0000
+//    2. x = 0xabcd => 0xb3d5 0000 0000 0000
+//    3. x = 0xff99 => 0x99ff 0000 0000 0000
+long ReverseX(long x, int n){
+    for (int i = 0, j = n; i < j; i++, j--){
+        x = SwapBits(x, i, j);
+    }
+    return x;
+}
+
+void CreatePrecomputedTable(vector<long> &precomputed_reverse){
+    for (int x = 0; x < (1 << 16); x++){
+        precomputed_reverse.emplace_back(ReverseX(x, 15));
+    }
+}
+
+long ReverseBits(long x, const vector<long> &precomputed_reverse){
+    const int Bits = 16;
+    const long Mask = 0xFFFF;
+    return precomputed_reverse[(x & Mask)] << (3 * Bits) |
+           precomputed_reverse[(x & (Mask << Bits))] << Bits |
+           precomputed_reverse[(x & (Mask << (2 * Bits)))] >> Bits |
+           precomputed_reverse[(x & (Mask << (3 * Bits)))] >> (3 * Bits);
+}
+```
+
 ### 4-7 Compute x^y
 
 * Solution
