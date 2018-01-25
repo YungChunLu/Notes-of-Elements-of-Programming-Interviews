@@ -188,6 +188,30 @@ bool IsPower2(unsigned int x){
 }
 ```
 
+### 4-2 Swap Bits
+
+* Solution
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. x = 6, i = 0, j = 1 => 5
+//    2. x = 6, i = 0, j = 3 => 6
+//    3. x = 6, i = 3, j = 1 => 12
+long SwapBits(long x, int i, int j){
+    // Test if i-th and j-th bits are different
+    bool is_diff = (((x >> i) ^ (x >> j)) & 1) == 1;
+    if (is_diff){
+        // Flip i-th and j-th bits
+        unsigned long bit_mask = (1L << i) | (1L << j);
+        x ^= bit_mask;
+    }
+    return x;
+}
+```
+
 ### 4-7 Compute x^y
 
 * Solution
