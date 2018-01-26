@@ -338,5 +338,42 @@ Rectangle IntersectRectangle(const Rectangle& R1, const Rectangle& R2){
 }
 ```
 
+### 4-11 Variant
+
+* Check if four points are vertices of a rectangle
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. p1 = {0, 0}, p2 = {2, 0}, p3 = {2, 4}, p4 = {0, 4} => 1
+//    2. p1 = {0, 0}, p2 = {2, 5}, p3 = {2, 4}, p4 = {5, 4} => 0
+//    3. p1 = {0, 0}, p2 = {2, 3}, p3 = {3, 5}, p4 = {1, 2} => 0
+//    4. p1 = {0, 0}, p2 = {2, 3}, p3 = {5, 1}, p4 = {3, -2} => 1
+struct Point{
+    int x, y;
+};
+
+struct Vector{
+    int x, y;
+};
+
+bool IsLengthEqual(const Vector& v1, const Vector& v2){
+    return (v1.x * v1.x) + (v1.y * v1.y) == (v2.x * v2.x) + (v2.y * v2.y);
+}
+
+bool IsParallel(const Vector& v1, const Vector& v2){
+    return v1.x * v2.y == v1.y * v2.x;
+}
+
+bool IsRectangle(const Point& p1, const Point& p2, const Point& p3, const Point& p4){
+    Vector p1p2 = {p2.x - p1.x, p2.y - p1.y}, p3p4 = {p4.x - p3.x, p4.y - p3.y},
+    p1p4 = {p4.x - p1.x, p4.y - p1.y}, p2p3 = {p3.x - p2.x, p3.y - p2.y},
+    p1p3 = {p3.x - p1.x, p3.y - p1.y}, p2p4 = {p4.x - p2.x, p4.y - p2.y};
+    return IsParallel(p1p2, p3p4) && IsParallel(p1p4, p2p3) && IsLengthEqual(p1p3, p2p4);
+}
+```
+
 
 
