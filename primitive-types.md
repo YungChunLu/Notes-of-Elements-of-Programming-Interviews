@@ -305,5 +305,38 @@ long Reverse(int x){
 }
 ```
 
+### 4-11 Rectangle Intersection
+
+* Solution
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. R1 = {0, 0, 3, 4}, R2 = {0, -3, 3, 1} => {0, 0, -1, -1}
+//    2. R1 = {0, 0, 3, 4}, R2 = {0, -3, 3, 3} => {0, 0, 3, 0}
+//    3. R1 = {0, 0, 3, 4}, R2 = {0, -3, 3, 4} => {0, 0, 3, 1}
+struct Rectangle{
+    int x, y, width, height;
+};
+
+bool IsIntersect(const Rectangle& R1, const Rectangle& R2){
+    return (R1.x <= R2.x + R2.width) && (R1.x + R1.width >= R2.x) &&
+    (R1.y <= R2.y + R2.height) && (R1.y + R1.height >= R2.y);
+}
+
+Rectangle IntersectRectangle(const Rectangle& R1, const Rectangle& R2){
+    if (!IsIntersect(R1, R2)){
+        return {0, 0, -1, -1};
+    }
+    return {
+        max(R1.x, R2.x),
+        max(R1.y, R2.y),
+        min(R1.x + R1.width, R2.x + R2.width) - max(R1.x, R2.x),
+        min(R1.y + R1.height, R2.y + R2.height) - max(R1.y, R2.y)};
+}
+```
+
 
 
