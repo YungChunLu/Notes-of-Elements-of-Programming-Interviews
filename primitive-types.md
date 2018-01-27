@@ -375,5 +375,53 @@ bool IsRectangle(const Point& p1, const Point& p2, const Point& p3, const Point&
 }
 ```
 
+* Check if two rectangles, not necessarily aligned with X and Y axes, intersect
+
+```cpp
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//    1. p1 = {0, 0}, p2 = {2, 0}, p3 = {2, 4}, p4 = {0, 4} => 1
+//    2. p1 = {0, 0}, p2 = {2, 5}, p3 = {2, 4}, p4 = {5, 4} => 0
+//    3. p1 = {0, 0}, p2 = {2, 3}, p3 = {3, 5}, p4 = {1, 2} => 0
+//    4. p1 = {0, 0}, p2 = {2, 3}, p3 = {5, 1}, p4 = {3, -2} => 1
+struct Point{
+    int x, y;
+};
+
+struct Vector{
+    int x, y;
+};
+
+struct Rectangle{
+    int x, y;
+    Vector width, height;
+};
+
+bool IsInside(const Point& p1, const Point& p2, const Point & p3){
+    Vector p2p1 = {p2.x - p1.x, p2.y - p1.y}, p3p1 = {p3.x - p1.x, p3.y - p1.y};
+    return (p2p1.x * p3p1.y - p2p1.y * p3p1.x) >= 0;
+}
+
+bool IsInsideRectangle(const Rectangle& R, const Point& p){
+    // Counterclock-wise
+    Point p1 = {R.x, R.y},
+    p2 = {R.x + R.width.x, R.y + R.width.y},
+    p3 = {R.x + R.width.x + R.height.x, R.y + R.width.y + R.height.y},
+    p4 = {R.x + R.height.x, R.y + R.height.y};
+    return IsInside(p1, p2, p) && IsInside(p2, p3, p) && IsInside(p3, p4, p) && IsInside(p4, p1, p);
+}
+
+bool IsIntersect(const Rectangle& R1, const Rectangle& R2){
+    // Counterclock-wise
+    Point p1 = {R2.x, R2.y},
+    p2 = {R2.x + R2.width.x, R2.height.y},
+    p3 = {R2.x + R2.width.x + R2.height.x, R2.y + R2.width.y + R2.height.y},
+    p4 = {R2.x + R2.height.x, R2.y + R2.height.y};
+    return IsInsideRectangle(R1, p1) || IsInsideRectangle(R1, p2) || IsInsideRectangle(R1, p3) || IsInsideRectangle(R1, p4);
+}
+```
+
 
 
