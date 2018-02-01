@@ -1,0 +1,4 @@
+* [What is **copy-and-swap** idiom?](https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom)
+* 
+
+

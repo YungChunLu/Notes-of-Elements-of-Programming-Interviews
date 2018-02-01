@@ -1,7 +1,17 @@
 ### Boot Camp
 
 * Tips
-  * Take advantage of operating efficiently on both ends
+  * Take advantage of operating efficiently on both ends.
+  * Array problems often have simple brute-force solutions that use O\(n\) space. But we sometimes can reduce it to O\(1\).
+  * Try to write values from the back because of better efficiency.
+  * Try to overwrite an entry instead of deleting it because of better efficiency.
+  * Avoid making off-by-1 error - reading past the last element of an array. Otherwise, the consequence is catastrophic.
+  * Don't worry about preserving the integrity of the array \(sortedness, keeping equal entries together, etc.\) until it's time to return.
+* Know the array libraries
+  * Declare an array: array&lt;int, 3&gt; A = {1, 2, 3}
+  * Declare a vector: vector&lt;int&gt; A = {1, 2, 3}
+  * Construct a subarray from an array: vector&lt;int&gt;\(A.begin\(\) + i,  A.begin\(\) + j\)
+  * Instantiate a 2D array: vector&lt;vector&lt;int, 2&gt;, 3&gt; A = {{1, 2}, {3, 4}, {5, 6}}
 * Even entries appear first - Solution
 
 ```cpp
