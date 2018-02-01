@@ -11,7 +11,7 @@
   * Declare an array: array A = {1, 2, 3}
   * Declare a vector: vector&lt;int&gt; A = {1, 2, 3}
   * Construct a subarray from an array: vector\(A.begin\(\) + i, A.begin\(\) + j\)
-  * Instantiate a 2D array: vector&lt;vector&lt;int&gt;&gt; A = {}
+  * Instantiate a 2D array: vector&lt;vector&lt;int&gt;&gt; A = {{1, 2}, {3, 4}, {5, 6}}
 * Even entries appear first - Solution
 
 ```cpp
