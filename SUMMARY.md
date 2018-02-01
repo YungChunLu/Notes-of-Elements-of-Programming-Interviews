@@ -4,5 +4,5 @@
 * [To figure out](to-figure-out.md)
 * [Introduction](README.md)
 * [Primitive Types](primitive-types.md)
-* [Arrays](arrays.md)
+* [A](a.md)
 
