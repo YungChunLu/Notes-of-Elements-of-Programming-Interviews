@@ -8,10 +8,14 @@
   * Avoid making off-by-1 error - reading past the last element of an array. Otherwise, the consequence is catastrophic.
   * Don't worry about preserving the integrity of the array \(sortedness, keeping equal entries together, etc.\) until it's time to return.
 * Know the array libraries
-  * Declare an array: array A = {1, 2, 3}
-  * Declare a vector: vector A = {1, 2, 3}
-  * Construct a subarray from an array: vector\(A.begin\(\) + i, A.begin\(\) + j\)
-  * Instantiate a 2D array:A =
+
+```cpp
+// Declare an array: array A = {1, 2, 3}
+// Declare a vector: vector<int> A = {1, 2, 3}
+// Construct a subarray from an array: vector(A.begin() + i, A.begin() + j)
+// Instantiate a 2D array: vector<vector<int>> A = {{1, 2}, {3, 4}, {5, 6}}
+```
+
 * Even entries appear first - Solution
 
 ```cpp
