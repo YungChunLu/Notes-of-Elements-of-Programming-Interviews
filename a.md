@@ -61,6 +61,7 @@ void EvenOdd(vector<int> *A_ptr){
 // Test Case:
 //     1. pivot_index = 2, A = {1, 2, 0, 1} => {0, 1, 1, 2}
 //     2. pivot_index = 0, A = {1, 2, 0, 1} => {0, 1, 1, 2}
+//     3. pivot_index = 1, A = {1, 2, 1, 0} => {1, 1, 0, 2}
 
 typedef enum {RED, WHITE, BLUE} Color;
 
