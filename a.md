@@ -49,5 +49,44 @@ void EvenOdd(vector<int> *A_ptr){
 }
 ```
 
+### 5-1 The Dutch National Flag Problem
+
+* Solution 1 - Brute-force
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. pivot_index = 2, A = {1, 2, 0, 1} => {0, 1, 1, 2}
+//     2. pivot_index = 0, A = {1, 2, 0, 1} => {0, 1, 1, 2}
+
+typedef enum {RED, WHITE, BLUE} Color;
+
+void DutchFlagPartition1(int pivot_index, vector<Color>* A_ptr){
+    vector<Color> &A = *A_ptr;
+    Color pivot = A[pivot_index];
+    // Order elements smaller pivot
+    for (int i = 0; i < A.size(); i++){
+        for (int j = i + 1; j < A.size(); j++){
+            if (A[j] < pivot){
+                Swap(A[i], A[j]);
+                break;
+            }
+        }
+    }
+    // Order elements larger than pivot
+    for (int i = (int)A.size() - 1; i >= 0 && A[i] >= pivot; i--) {
+        for (int j = i - 1; j >= 0 && A[j] >= pivot; j--) {
+            if (A[j] > pivot) {
+                Swap(A[i], A[j]);
+                break;
+            }
+        }
+    }
+}
+```
+
 
 
