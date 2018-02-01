@@ -1,10 +1,8 @@
-
-
 ## Things I can learn from this book
 
 * Common data structure in C++
 * Common algorithm in C++
-* 
+
 ## Things I wish to learn
 
 * C++ syntax
