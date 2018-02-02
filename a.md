@@ -99,7 +99,7 @@ void DutchFlagPartition1(int pivot_index, vector<Color>* A_ptr){
 // Test Case:
 //     1. pivot_index = 1, A = {1, 1, 0, 2} => {0, 1, 1, 2}
 //     2. pivot_index = 3, A = {0, 0, 1, 2, 1, 1} => {0, 0, 1, 1, 1, 2}
-//     3. pivot_index = 2, A = {1, 2, 1, 0, 1, 2} => {0, 1, 1, 1, 2}
+//     3. pivot_index = 1, A = {1, 2, 1, 0, 1, 2} => {1, 1, 0, 1, 2, 2}
 
 void DutchFlagPartition2(int pivot_index, vector<Color>* A_ptr){
     vector<Color> &A = *A_ptr;
@@ -116,6 +116,36 @@ void DutchFlagPartition2(int pivot_index, vector<Color>* A_ptr){
     for (int i = (int)A.size() - 1; i >= 0 && A[i] >= pivot; i--) {
         if (A[i] > pivot) {
             Swap(A[i], A[next_larger--]);
+        }
+    }
+}
+```
+
+* Solution 3 - Tricky Implementation
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. pivot_index = 1, A = {1, 1, 0, 2} => {0, 1, 1, 2}
+//     2. pivot_index = 3, A = {0, 0, 1, 2, 1, 1} => {0, 0, 1, 1, 1, 2}
+//     3. pivot_index = 1, A = {1, 2, 1, 0, 1, 2} => {1, 1, 0, 1, 2, 2}
+
+void DutchFlagPartition3(int pivot_index, vector<Color>* A_ptr){
+    vector<Color> &A = *A_ptr;
+    Color pivot = A[pivot_index];
+    int less_index = 0, equal_index = 0, larger_index = (int)A.size();
+    while (equal_index < larger_index){
+        if (A[equal_index] < pivot) {
+            Swap(A[equal_index++], A[less_index++]);
+        }
+        else if (A[equal_index] == pivot){
+            equal_index++;
+        }
+        else{
+            Swap(A[equal_index], A[--larger_index]);
         }
     }
 }
