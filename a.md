@@ -89,5 +89,37 @@ void DutchFlagPartition1(int pivot_index, vector<Color>* A_ptr){
 }
 ```
 
+* Solution 2 - Single Pass
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. pivot_index = 1, A = {1, 1, 0, 2} => {0, 1, 1, 2}
+//     2. pivot_index = 3, A = {0, 0, 1, 2, 1, 1} => {0, 0, 1, 1, 1, 2}
+//     3. pivot_index = 2, A = {1, 2, 1, 0, 1, 2} => {0, 1, 1, 1, 2}
+
+void DutchFlagPartition2(int pivot_index, vector<Color>* A_ptr){
+    vector<Color> &A = *A_ptr;
+    Color pivot = A[pivot_index];
+    // Order elements smaller pivot
+    int next_smaller = 0;
+    for (int i = 0; i < A.size(); i++){
+        if (A[i] < pivot){
+            Swap(A[i], A[next_smaller++]);
+        }
+    }
+    // Order elements larger than pivot
+    int next_larger = (int)A.size() - 1;
+    for (int i = (int)A.size() - 1; i >= 0 && A[i] >= pivot; i--) {
+        if (A[i] > pivot) {
+            Swap(A[i], A[next_larger--]);
+        }
+    }
+}
+```
+
 
 
