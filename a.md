@@ -151,5 +151,36 @@ void DutchFlagPartition3(int pivot_index, vector<Color>* A_ptr){
 }
 ```
 
+### 5-1 Variant
+
+* Group the same color
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {1, 1} => {1, 1}
+//     2. A = {0, 0, 1, 2, 1, 1} => {0, 0, 1, 1, 1, 2}
+//     3. A = {1, 2, 1, 2} => {1, 1, 2, 2}
+
+void Variant5_1_1(vector<Color>* A_ptr){
+    vector<Color> &A = *A_ptr;
+    int head = 0, tail = (int)A.size(), unclassfied = 0;
+    while (unclassfied < tail) {
+        if (A[unclassfied] < WHITE){
+            Swap(A[unclassfied++], A[head++]);
+        }
+        else if (A[unclassfied] > WHITE){
+            Swap(A[unclassfied], A[--tail]);
+        }
+        else{
+            unclassfied++;
+        }
+    }
+}
+```
+
 
 
