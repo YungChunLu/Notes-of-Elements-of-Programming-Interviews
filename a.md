@@ -282,7 +282,27 @@ double BuyAndSellStockOnceMine(const vector<double>& prices){
 
 * Solution 2 - author's implementation
 
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
 
+// Test Case:
+//     1. prices = {310, 315, 275, 295, 260, 270, 290, 230, 255, 250} => 30
+//     2. prices = {310} => 0
+//     3. prices = {310, 315, 275} => 5
+//     4. prices = {310, 315, 275, 310} => 35
+
+double BuyAndSellStockOnceAuthor(const vector<double>& prices){
+    double min_price_so_far = numeric_limits<double>::max(), profit = 0;
+    for (const double& price : prices) {
+        double max_profit_so_far = price - min_price_so_far;
+        profit = max(profit, max_profit_so_far);
+        min_price_so_far = min(min_price_so_far, price);
+    }
+    return profit;
+}
+```
 
 
 
