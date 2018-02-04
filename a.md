@@ -165,6 +165,8 @@ void DutchFlagPartition3(int pivot_index, vector<Color>* A_ptr){
 //     2. A = {0, 0, 1, 2, 1, 1} => {0, 0, 1, 1, 1, 2}
 //     3. A = {1, 2, 1, 2} => {1, 1, 2, 2}
 
+typedef enum {RED, WHITE, BLUE} Color;
+
 void Variant5_1_1(vector<Color>* A_ptr){
     vector<Color> &A = *A_ptr;
     int head = 0, tail = (int)A.size(), unclassfied = 0;
@@ -177,6 +179,42 @@ void Variant5_1_1(vector<Color>* A_ptr){
         }
         else{
             unclassfied++;
+        }
+    }
+}
+```
+
+* Group the same key
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {0} => {0}
+//     2. A = {0, 3} => {0, 3}
+//     3. A = {0, 3, 2, 1} => {0, 1, 2, 3}
+//     4. A = {0, 3, 1, 2, 3, 0} => {0, 0, 1, 3, 3, 2}
+
+typedef enum {K0, K1, K2, K3} Variant5_1_2_Key;
+
+void Variant5_1_2(vector<Variant5_1_2_Key>* A_ptr){
+    vector<Variant5_1_2_Key> &A = *A_ptr;
+    int K0_index = 0, K1_index = 0, K2_index = (int)A.size(), K3_index = (int)A.size(), unclassified = 0;
+    while ((unclassified < K2_index) && (unclassified < K3_index)) {
+        if (A[unclassified] == K0) {
+            Swap(A[unclassified++], A[K0_index++]);
+            K1_index++;
+        }
+        else if (A[unclassified] == K1){
+            Swap(A[unclassified++], A[K1_index++]);
+        }
+        else if (A[unclassified] == K3){
+            Swap(A[unclassified], A[--K3_index]);
+        }
+        else{
+            Swap(A[unclassified], A[--K2_index]);
         }
     }
 }
