@@ -220,5 +220,32 @@ void Variant5_1_2(vector<Variant5_1_2_Key>* A_ptr){
 }
 ```
 
+* Group the same boolean key
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {false} => {false}
+//     2. A = {true, false} => {false, true}
+//     3. A = {true, false, false} => {0, 1, 2, 3}
+//     4. A = {true, false, true, false} => {false, false, true, true}
+
+void Variant5_1_3(vector<bool>* A_ptr){
+    vector<bool> &A = *A_ptr;
+    int true_index = (int)A.size(), unclassified_index = 0;
+    while (unclassified_index < true_index) {
+        if (A[unclassified_index]) {
+            swap(A[unclassified_index], A[--true_index]);
+        }
+        else{
+            unclassified_index++;
+        }
+    }
+}
+```
+
 
 
