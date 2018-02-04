@@ -249,7 +249,7 @@ void Variant5_1_3(vector<bool>* A_ptr){
 
 ### 5-6 Buy and Sell a stock once
 
-* Mine
+* Solution 1 - Mine implementation
 
 ```cpp
 // n: The number of values in array
@@ -279,6 +279,10 @@ double BuyAndSellStockOnceMine(const vector<double>& prices){
     return profit;
 }
 ```
+
+* Solution 2 - author's implementation
+
+
 
 
 
