@@ -247,5 +247,38 @@ void Variant5_1_3(vector<bool>* A_ptr){
 }
 ```
 
+### 5-6 Buy and Sell a stock once
+
+* Mine
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. prices = {310, 315, 275, 295, 260, 270, 290, 230, 255, 250} => 30
+//     2. prices = {310} => 0
+//     3. prices = {310, 315, 275} => 5
+//     4. prices = {310, 315, 275, 310} => 35
+
+double BuyAndSellStockOnceMine(const vector<double>& prices){
+    double profit = 0;
+    if (prices.size() > 1){
+        double buy = prices[0];
+        for (int i = 1; i < prices.size(); i++){
+            double diff = prices[i] - buy;
+            if (diff > profit) {
+                profit = diff;
+            }
+            else if (prices[i] < buy){
+                buy = prices[i];
+            }
+        }
+    }
+    return profit;
+}
+```
+
 
 
