@@ -304,5 +304,37 @@ double BuyAndSellStockOnceAuthor(const vector<double>& prices){
 }
 ```
 
+### 5-6 Variant
+
+* The length of a longest subarray
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. vals = {} => 0
+//     2. vals = {1} => 1
+//     3. vals = {2, 1, 1} => 2
+//     4. vals = {2, 1, 1, 1, 3} => 3
+
+int LongestSubArrayLength(const vector<int>& vals){
+    int longest_length = 0, length = 0, current_val = numeric_limits<int>::max();
+    for (const int& val : vals){
+        if (val == current_val){
+            length++;
+        }
+        else{
+            longest_length = max(length, longest_length);
+            current_val = val;
+            length = 1;
+        }
+    }
+    longest_length = max(length, longest_length);
+    return longest_length;
+}
+```
+
 
 
