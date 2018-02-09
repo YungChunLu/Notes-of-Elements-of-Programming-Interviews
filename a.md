@@ -334,6 +334,29 @@ int LongestSubArrayLength(const vector<int>& vals){
     longest_length = max(length, longest_length);
     return longest_length;
 }
+
+// Test helper function
+map<vector<int>, int> Counts = {};
+vector<int> nums = {1, 4, 3};
+int k = 2;
+for (int n = 0; n < 200; n++) {
+    RandomSampling(k, &nums);
+    vector<int>::const_iterator head = nums.begin();
+    vector<int> key(head, head+k);
+    if (Counts.find(key)==Counts.end()){
+        Counts[key] = 1;
+    }
+    else{
+        Counts[key] += 1;
+    }
+}
+for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it++) {
+    cout << "Key: ";
+    for (vector<int>::const_iterator val_it = it->first.begin(); val_it != it->first.end(); val_it++) {
+        cout << *val_it << " ";
+    }
+    cout << "Counts: " << it->second << endl;
+}
 ```
 
 
