@@ -334,6 +334,24 @@ int LongestSubArrayLength(const vector<int>& vals){
     longest_length = max(length, longest_length);
     return longest_length;
 }
+```
+
+### 5-12 Sample Offline Data
+
+* Given an array of distinct elements and a size, returns a subset of the given size of the array elements. All subsets should be equally likely.
+
+```cpp
+// k: The size of a selected subset
+// Time Complexity: O(k)
+// Space Complexity: O(1)
+
+void RandomSampling(int k, vector<int>* A_ptr){
+    vector<int>& A = *A_ptr;
+    default_random_engine seed((random_device())());
+    for (int i = 0; i < k; i++) {
+        swap(A[i], A[uniform_int_distribution<int>{i, static_cast<int>(A.size()) - 1}(seed)]);
+    }
+}
 
 // Test helper function
 map<vector<int>, int> Counts = {};
@@ -358,6 +376,10 @@ for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it
     cout << "Counts: " << it->second << endl;
 }
 ```
+
+### 5-12 Variant
+
+* It's not correct. If **RAND\_MAX** can not evenly divided by n, **rand\(\) mod n** can not generate uniform distribution.
 
 
 
