@@ -385,7 +385,7 @@ for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it
 
 * Mine Solution
 
-```
+```cpp
 // n: The size of a square matrix, n by n
 // Time Complexity: O(n^2)
 // Space Complexity: O(1)
