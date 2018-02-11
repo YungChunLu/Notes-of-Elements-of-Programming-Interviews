@@ -457,7 +457,7 @@ vector<int> MatrixInSpiralOrderAuthor(vector<vector<int>> square_matrix){
 
 ### 5-18 Variant
 
-* Given a dimension d, generate a d by d 2D matrix.
+* Given a dimension d, generate a d by d 2D matrix which in spiral order is \(1, 2, 3, ... d^2\).
 
 ```cpp
 // d: The size of a square matrix, d by d
@@ -474,6 +474,39 @@ vector<vector<int>> GenerateSpiralOrderMatrix(int d){
     vector<vector<int>> spiral_matrix(d, vector<int>(d, 0));
     for (int val = 1; val <= d * d; val++){
         spiral_matrix[x][y] = val;
+        int next_x = x + kShift[dir][0], next_y = y + kShift[dir][1];
+        if (next_x < 0 || next_x >= d ||
+            next_y < 0 || next_y >= d ||
+            spiral_matrix[next_x][next_y] != 0){
+            dir = (dir + 1) % 4;
+            next_x = x + kShift[dir][0];
+            next_y = y + kShift[dir][1];
+        }
+        x = next_x;
+        y = next_y;
+    }
+    return spiral_matrix;
+}
+```
+
+* Given a sequence, generate a 2D matrix which in spiral order is same as the sequence.
+
+```cpp
+// n: The size of the sequence
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. sequence = {1, 8, 3, 5} => {{1, 8}, {5, 3}}
+//     2. sequence = {1, 2, 3, 4, 5, 6, 7, 8, 9} => {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+
+vector<vector<int>> GenerateSpiralOrderMatrixFromSequence(vector<int>* sequence_ptr){
+    vector<int>& sequence = *sequence_ptr;
+    int dir = 0, x = 0, y = 0, d = floor(sqrt(sequence.size()));
+    const array<array<int, 2>, 4> kShift = {{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}};
+    vector<vector<int>> spiral_matrix(d, vector<int>(d, 0));
+    for (int i = 0; i < sequence.size(); i++) {
+        spiral_matrix[x][y] = sequence[i];
         int next_x = x + kShift[dir][0], next_y = y + kShift[dir][1];
         if (next_x < 0 || next_x >= d ||
             next_y < 0 || next_y >= d ||
