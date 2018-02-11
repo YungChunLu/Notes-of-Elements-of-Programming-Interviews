@@ -394,9 +394,9 @@ for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it
 //     1. square_matrix = {{1, 2}, {3, 4}} => {1, 2, 4, 3}
 //     2. square_matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}} => {1, 2, 3, 6, 9, 8, 7, 4, 5}
 
-vector<vector<int>> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
+vector<int> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
     int start = 0, end = static_cast<int>(square_matrix.size());
-    vector<vector<int>> spiral_ordering;
+    vector<int> spiral_ordering;
     while (start < end) {
         for (int i = start, j = start; i < end - 1; i++){
             spiral_ordering.emplace_back(square_matrix[j][i]);
@@ -418,6 +418,39 @@ vector<vector<int>> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
         spiral_ordering.emplace_back(square_matrix[start][start]);
     }
     cout << endl;
+    return spiral_ordering;
+}
+```
+
+* Author's Solution
+
+```cpp
+// n: The size of a square matrix, n by n
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. square_matrix = {{1, 2}, {3, 4}} => {1, 2, 4, 3}
+//     2. square_matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}} => {1, 2, 3, 6, 9, 8, 7, 4, 5}
+
+vector<int> MatrixInSpiralOrderAuthor(vector<vector<int>> square_matrix){
+    const array<array<int, 2>, 4> kShift = {{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}};
+    int dir = 0, x = 0, y = 0;
+    vector<int> spiral_ordering;
+    for (int i = 0; i < square_matrix.size() * square_matrix.size(); i++) {
+        spiral_ordering.emplace_back(square_matrix[x][y]);
+        square_matrix[x][y] = 0;
+        int next_x = x + kShift[dir][0], next_y = y + kShift[dir][1];
+        if (next_x < 0 || next_x >= square_matrix.size() ||
+            next_y < 0 || next_y >= square_matrix.size() ||
+            square_matrix[next_x][next_y] == 0){
+            dir = (dir + 1) % 4;
+            next_x = x + kShift[dir][0];
+            next_y = y + kShift[dir][1];
+        }
+        x = next_x;
+        y = next_y;
+    }
     return spiral_ordering;
 }
 ```
