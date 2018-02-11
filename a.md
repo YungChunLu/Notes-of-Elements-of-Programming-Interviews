@@ -522,5 +522,40 @@ vector<vector<int>> GenerateSpiralOrderMatrixFromSequence(vector<int>* sequence_
 }
 ```
 
+* Given a number n, generate first n pairs of integers in spiral order
+
+```cpp
+// n: The number of pairs
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. n = 5 => {{0, 0}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}}
+//     2. n = 10 => {{0, 0}, {1, 0}, {1, -1}, {0, -1}, {-1, -1},
+                     {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {2, 1}}
+
+vector<vector<int>> GenerateSpiralOrderPairs(int n){
+    const array<array<int, 2>, 4> kShift = {{{1, 0}, {0, -1}, {-1, 0}, {0, 1}}};
+    int dir = 0, x = 0, y = 0, boundary = 2;
+    vector<vector<int>> pairs;
+    for (int i = 0; i < n; i++) {
+        pairs.emplace_back(vector<int> {x, y});
+        int next_x = x + kShift[dir][0], next_y = y + kShift[dir][1];
+        if (next_x >= boundary || next_x <= -boundary ||
+            next_y >= boundary || next_y <= -boundary){
+            if (dir == 3){
+                boundary++;
+            }
+            dir = ++dir % 4;
+            next_x = x + kShift[dir][0];
+            next_y = y + kShift[dir][1];
+        }
+        x = next_x;
+        y = next_y;
+    }
+    return pairs;
+}
+```
+
 
 
