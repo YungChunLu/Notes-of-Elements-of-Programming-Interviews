@@ -381,5 +381,51 @@ for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it
 
 * It's not correct. If **RAND\_MAX** can not evenly divided by n, **rand\(\) mod n** can not generate uniform distribution.
 
+### 5-18 Compute the spiral ordering of a 2D array
+
+* Mine Solution
+
+```
+// n: The size of a square matrix, n by n
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. square_matrix = {{1, 2}, {3, 4}} => {1, 2, 4, 3}
+//     2. square_matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}} => {1, 2, 3, 6, 9, 8, 7, 4, 5}
+
+vector<vector<int>> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
+    int start = 0, end = static_cast<int>(square_matrix.size());
+    vector<vector<int>> spiral_ordering;
+    while (start < end) {
+        for (int i = start, j = start; i < end - 1; i++){
+            spiral_ordering.emplace_back(square_matrix[j][i]);
+            cout << square_matrix[j][i] << " ";
+        }
+        for (int i = end - 1, j = start; j < end - 1; j++){
+            spiral_ordering.emplace_back(square_matrix[j][i]);
+            cout << square_matrix[j][i] << " ";
+        }
+        for (int i = end - 1, j = end - 1; i > start; i--){
+            spiral_ordering.emplace_back(square_matrix[j][i]);
+            cout << square_matrix[j][i] << " ";
+        }
+        for (int i = start, j = end - 1; j > start; j--){
+            spiral_ordering.emplace_back(square_matrix[j][i]);
+            cout << square_matrix[j][i] << " ";
+        }
+        start++;
+        end--;
+    }
+    // Handle the center case when the size of sqaure matrix is odd
+    if (start - 1 == end) {
+        spiral_ordering.emplace_back(square_matrix[start][start]);
+        cout << square_matrix[end][end] << " ";
+    }
+    cout << endl;
+    return spiral_ordering;
+}
+```
+
 
 
