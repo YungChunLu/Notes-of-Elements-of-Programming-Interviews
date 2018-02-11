@@ -532,7 +532,7 @@ vector<vector<int>> GenerateSpiralOrderMatrixFromSequence(vector<int>* sequence_
 // Test Case:
 //     1. n = 5 => {{0, 0}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}}
 //     2. n = 10 => {{0, 0}, {1, 0}, {1, -1}, {0, -1}, {-1, -1},
-                     {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {2, 1}}
+//                   {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {2, 1}}
 
 vector<vector<int>> GenerateSpiralOrderPairs(int n){
     const array<array<int, 2>, 4> kShift = {{{1, 0}, {0, -1}, {-1, 0}, {0, 1}}};
@@ -554,6 +554,39 @@ vector<vector<int>> GenerateSpiralOrderPairs(int n){
         y = next_y;
     }
     return pairs;
+}
+```
+
+* Compute the spiral order for an m by n 2D matrix
+
+```cpp
+// m, n: The dimension of the rectangle m by n matrix
+// Time Complexity: O(m*n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. rectangle_matrix = {{1, 2, 3}, {4, 5, 6}} => {1, 2, 3, 6, 5, 4}
+//     2. rectangle_matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}} => {1, 2, 3, 6, 9, 12, 11, 10, 7, 4, 5, 8}
+
+vector<int> RectangleMatrixInSpiralOrder(vector<vector<int>> rectangle_matrix){
+    const array<array<int, 2>, 4> kShift = {{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}};
+    int dir = 0, x = 0, y = 0;
+    vector<int> spiral_ordering;
+    for (int i = 0; i < rectangle_matrix[0].size() * rectangle_matrix.size(); i++) {
+        spiral_ordering.emplace_back(rectangle_matrix[x][y]);
+        rectangle_matrix[x][y] = 0;
+        int next_x = x + kShift[dir][0], next_y = y + kShift[dir][1];
+        if (next_x < 0 || next_x >= rectangle_matrix.size() ||
+            next_y < 0 || next_y >= rectangle_matrix[0].size() ||
+            rectangle_matrix[next_x][next_y] == 0){
+            dir = (dir + 1) % 4;
+            next_x = x + kShift[dir][0];
+            next_y = y + kShift[dir][1];
+        }
+        x = next_x;
+        y = next_y;
+    }
+    return spiral_ordering;
 }
 ```
 
