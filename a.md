@@ -400,19 +400,15 @@ vector<vector<int>> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
     while (start < end) {
         for (int i = start, j = start; i < end - 1; i++){
             spiral_ordering.emplace_back(square_matrix[j][i]);
-            cout << square_matrix[j][i] << " ";
         }
         for (int i = end - 1, j = start; j < end - 1; j++){
-            spiral_ordering.emplace_back(square_matrix[j][i]);
-            cout << square_matrix[j][i] << " ";
+            spiral_ordering.emplace_back(square_matrix[j][i])
         }
         for (int i = end - 1, j = end - 1; i > start; i--){
             spiral_ordering.emplace_back(square_matrix[j][i]);
-            cout << square_matrix[j][i] << " ";
         }
         for (int i = start, j = end - 1; j > start; j--){
             spiral_ordering.emplace_back(square_matrix[j][i]);
-            cout << square_matrix[j][i] << " ";
         }
         start++;
         end--;
@@ -420,7 +416,6 @@ vector<vector<int>> MatrixInSpiralOrderMine(vector<vector<int>>& square_matrix){
     // Handle the center case when the size of sqaure matrix is odd
     if (start - 1 == end) {
         spiral_ordering.emplace_back(square_matrix[start][start]);
-        cout << square_matrix[end][end] << " ";
     }
     cout << endl;
     return spiral_ordering;
