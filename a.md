@@ -590,5 +590,45 @@ vector<int> RectangleMatrixInSpiralOrder(vector<vector<int>> rectangle_matrix){
 }
 ```
 
+* Compute the last element in spiral order for an m by n 2D matrix
+
+```cpp
+// m, n: The dimension of the rectangle m by n matrix
+// Time Complexity: O(1)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. rectangle_matrix = {{1, 2, 3}, {4, 5, 6}} => 4
+//     2. rectangle_matrix = {{1, 2}, {3, 4}} => 3
+//     3. rectangle_matrix = {{1, 2}, {3, 4}, {5, 6}} => 3
+//     4. rectangle_matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}} => 8
+//     5. rectangle_matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}} => 7
+
+int LastElementInSpiralOrder(vector<vector<int>> rectangle_matrix){
+    int m = (int)rectangle_matrix.size(), n = (int)rectangle_matrix[0].size();
+    int x = floor(m * 0.5), y = floor(n * 0.5);
+    if (m < n){
+        if (m % 2 == 1){
+            y = n - x - 1;
+        }
+        else{
+            y = x - 1;
+        }
+    }
+    else if (m == n && m % 2 == 0){
+        y = x - 1;
+    }
+    else if (m > n){
+        if (n % 2 == 0){
+            x = y--;
+        }
+        else{
+            x = m - y - 1;
+        }
+    }
+    return rectangle_matrix[x][y];
+}
+```
+
 
 
