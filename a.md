@@ -286,7 +286,7 @@ vector<int> PlusOne(vector<int> A){
 
 * Mine Solution
 
-```
+```cpp
 // n: The number of digits in the longer string
 // Time Complexity: O(n)
 // Space Complexity: O(n)
