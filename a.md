@@ -282,6 +282,50 @@ vector<int> PlusOne(vector<int> A){
 }
 ```
 
+### 5-2 Variant
+
+* Mine Solution
+
+```
+// n: The number of digits in the longer string
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+// Test Case:
+//     1. Bs = "1", Bt = "1" => "10"
+//     2. Bs = "11", Bt = "10" => "101"
+//     3. Bs = "101", Bt = "110" => "1011"
+
+string AddTwoStrings(string Bs, string Bt){
+    // Reverse the two strings
+    reverse(Bs.begin(), Bs.end());
+    reverse(Bt.begin(), Bt.end());
+    int k = 0, carry = 0;
+    string ans = "";
+    // Iterate through the common bits of two strings
+    while ((k < Bs.size())&(k < Bt.size())) {
+        int add = (Bs[k] - '0') + (Bt[k] - '0') + carry;
+        ans.push_back('0' + (add % 2));
+        carry = add / 2;
+        k++;
+    }
+    // Iterate through the bits of the longer string
+    string B = (Bs.size() > Bt.size()) ? Bs : Bt;
+    while (k < B.size()){
+        int add = (B[k] - '0') + carry;
+        ans.push_back('0' + (add % 2));
+        carry = add / 2;
+        k++;
+    }
+    // Add back the carry bit
+    if (carry > 0) {
+        ans.push_back('1');
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+```
+
 ### 5-6 Buy and Sell a stock once
 
 * Solution 1 - Mine implementation
