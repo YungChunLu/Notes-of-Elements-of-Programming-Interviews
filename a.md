@@ -247,6 +247,41 @@ void Variant5_1_3(vector<bool>* A_ptr){
 }
 ```
 
+### 5-2 Increment An Arbitrary-Precision Integer
+
+* Mine Solution
+
+```cpp
+// n: The number of digits in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {9} => {1, 0}
+//     2. A = {0} => {1}
+//     3. A = {1, 9} => {2, 0}
+//     4. A = {9, 9, 9} => {1, 0, 0, 0}
+
+vector<int> PlusOne(vector<int> A){
+    int carry = 1, precision = (int)A.size() - 1;
+    while (precision >= 0) {
+        int new_val = A[precision] + carry;
+        if (new_val > 9) {
+            A[precision] = new_val - 10;
+            precision--;
+        }
+        else {
+            A[precision] = new_val;
+            break;
+        }
+    }
+    if (precision < 0){
+        A.insert(A.begin(), 1);
+    }
+    return A;
+}
+```
+
 ### 5-6 Buy and Sell a stock once
 
 * Solution 1 - Mine implementation
