@@ -358,7 +358,7 @@ int DeleteDuplicates(vector<int>* A_ptr) {
 
 ### 5-5 Variant
 
-```
+```cpp
 // n: The number of values in array
 // Time Complexity: O(n)
 // Space Complexity: O(1)
