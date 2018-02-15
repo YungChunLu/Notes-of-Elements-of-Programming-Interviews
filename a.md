@@ -326,6 +326,36 @@ string AddTwoStrings(string Bs, string Bt){
 }
 ```
 
+### 5-5 Delete Duplicates From A Sorted Array
+
+```cpp
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {1,} => 1
+//     2. A = {1, 2, 3} => 3
+//     3. A = {1, 2, 3, 3, 4} => 4
+//     4. A = {1, 2, 3, 3, 4, 5, 5, 6} => 6
+
+int DeleteDuplicates(vector<int>* A_ptr) {
+    vector<int>& A = *A_ptr;
+    if (A.size() == 0) {
+        return 0;
+    }
+    int num_element = 0, current_val = A[0] - 1;
+    for (int pos = 0; pos < A.size(); pos++) {
+        if (A[pos] != current_val) {
+            current_val = A[pos];
+            A[num_element++] = A[pos];
+        }
+    }
+    A = vector<int>(A.begin(), A.begin() + num_element);
+    return num_element;
+}
+```
+
 ### 5-6 Buy and Sell a stock once
 
 * Solution 1 - Mine implementation
