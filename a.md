@@ -356,6 +356,32 @@ int DeleteDuplicates(vector<int>* A_ptr) {
 }
 ```
 
+### 5-5 Variant
+
+```
+// n: The number of values in array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Case:
+//     1. A = {1,}, key = 1 => 0
+//     2. A = {1, 2, 3}, key = 2 => 2
+//     3. A = {1, 2, 3, 3, 4}, key = 3 => 3
+//     4. A = {1, 2, 3, 3, 4, 5, 5, 6}, key = 3 => 6
+
+int RemoveElement(vector<int>* A_ptr, int key) {
+    vector<int>& A = *A_ptr;
+    int num_element = 0;
+    for (int pos = 0; pos < A.size(); pos++) {
+        if (A[pos] != key) {
+            A[num_element++] = A[pos];
+        }
+    }
+    A = vector<int>(A.begin(), A.begin() + num_element);
+    return num_element;
+}
+```
+
 ### 5-6 Buy and Sell a stock once
 
 * Solution 1 - Mine implementation
