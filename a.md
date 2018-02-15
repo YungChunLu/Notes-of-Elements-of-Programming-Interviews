@@ -460,6 +460,58 @@ for (map<vector<int>, int>::iterator it = Counts.begin(); it != Counts.end(); it
 
 * It's not correct. If **RAND\_MAX** can not evenly divided by n, **rand\(\) mod n** can not generate uniform distribution.
 
+### 5-17 The Sudoku Checker Problem
+
+* Author's Solution
+
+```cpp
+// n: The dimension of a n*n Sodoku
+// Time Complexity: O(n*2)
+// Space Complexity: O(n)
+
+bool HasDuplicate(const vector<vector<int>>& partial_assignment,
+                  int start_row, int end_row, int start_col, int end_col){
+    deque<bool> is_duplicate(partial_assignment.size()+1, false);
+    for (int row = start_row; row < end_row; row++) {
+        for (int col = start_col; col < end_col; col++) {
+            int val = partial_assignment[row][col];
+            if (val != 0 && is_duplicate[val]) {
+                return true;
+            }
+            is_duplicate[val] = true;
+        }
+    }
+    return false;
+}
+
+bool IsValidSudoku(const vector<vector<int>>& partial_assignment){
+    int n = (int)partial_assignment.size();
+    // Check each row
+    for (int start_row = 0; start_row < n; start_row++) {
+        if (HasDuplicate(partial_assignment, start_row, start_row+1, 0, n)) {
+            return false;
+        }
+    }
+    // Check each column
+    for (int start_col = 0; start_col < n; start_col++) {
+        if (HasDuplicate(partial_assignment, 0, n, start_col, start_col+1)) {
+            return false;
+        }
+    }
+    // Check each region
+    int region_size = (int)sqrt(n);
+    for (int start_row = 0; start_row < n; start_row += region_size) {
+        for (int start_col = 0; start_col < n; start_col += region_size) {
+            if (HasDuplicate(partial_assignment, start_row, start_row + region_size,
+                             start_col, start_col + region_size)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+```
+
 ### 5-18 Compute the spiral ordering of a 2D array
 
 * Mine Solution
