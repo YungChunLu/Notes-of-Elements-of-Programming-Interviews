@@ -471,6 +471,65 @@ int LongestSubArrayLength(const vector<int>& vals){
 }
 ```
 
+### 5-9 Enumerate All Primes To n
+
+* Mine Solution
+
+```cpp
+// n: The value of input
+// Time Complexity: O(n^3/2)
+// Space Complexity: O(1)
+
+bool IsPrime(int n) {
+    if (n == 1) {
+        return false;
+    }
+    for (int divisor = 2; divisor <= sqrt(n); divisor++) {
+        if (n % divisor == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<int> GeneratePrimesMine(int n) {
+    vector<int> primes;
+    for (int val = 2; val < n; val++) {
+        if (IsPrime(val)) {
+            primes.emplace_back(val);
+        }
+    }
+    return primes;
+}
+```
+
+* Author's Solution
+
+```cpp
+// n: The value of input
+// Time Complexity: O(nloglogn)
+// Space Complexity: O(n)
+
+vector<int> GeneratePrimesAuthor(int n) {
+    if (n < 2) {
+        return {};
+    }
+    int size = floor(0.5 * (n - 3)) + 1;
+    vector<int> primes = {2};
+    deque<bool> is_prime = deque<bool>(size, true);
+    for (int i = 0; i < size; i++) {
+        long p = 2 * i + 3;
+        if (is_prime[i]) {
+            primes.emplace_back((int) p);
+        }
+        for (int j = 2 * i * i + 6 * i + 3; j < n; j += p){
+            is_prime[j] = false;
+        }
+    }
+    return primes;
+}
+```
+
 ### 5-12 Sample Offline Data
 
 * Given an array of distinct elements and a size, returns a subset of the given size of the array elements. All subsets should be equally likely.
