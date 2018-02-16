@@ -2,6 +2,12 @@
 
 * Tips
   * Advanced string processing algorithms often use **hash tables** and **dynamic programming**.
+* Know the array libraries
+
+```markdown
+1. Basic methods: append("12"), push_back('v'), pop_back(), insert(2, "12"), substr(pos, len), compare("12")
+```
+
 * Determine whether a string is palindromic
 
 ```cpp

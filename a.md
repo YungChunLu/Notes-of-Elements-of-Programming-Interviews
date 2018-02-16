@@ -9,11 +9,11 @@
   * Don't worry about preserving the integrity of the array \(sortedness, keeping equal entries together, etc.\) until it's time to return.
 * Know the array libraries
 
-```cpp
-// Declare an array: array A = {1, 2, 3}
-// Declare a vector: vector<int> A = {1, 2, 3}
-// Construct a subarray from an array: vector(A.begin() + i, A.begin() + j)
-// Instantiate a 2D array: vector<vector<int>> A = {{1, 2}, {3, 4}, {5, 6}}
+```markdown
+1. Declare an array: array A = {1, 2, 3}
+2. Declare a vector: vector<int> A = {1, 2, 3}
+3. Construct a subarray from an array: vector(A.begin() + i, A.begin() + j)
+4. Instantiate a 2D array: vector<vector<int>> A = {{1, 2}, {3, 4}, {5, 6}}
 ```
 
 * Even entries appear first - Solution
