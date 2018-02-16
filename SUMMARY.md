@@ -5,4 +5,5 @@
 * [Introduction](README.md)
 * [Primitive Types](primitive-types.md)
 * [Arrays](a.md)
+* [Strings](strings.md)
 
