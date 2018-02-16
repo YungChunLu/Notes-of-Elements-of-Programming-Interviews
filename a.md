@@ -480,6 +480,11 @@ int LongestSubArrayLength(const vector<int>& vals){
 // Time Complexity: O(n^3/2)
 // Space Complexity: O(1)
 
+// Test Cases:
+//     1. n = 3 => {2, 3}
+//     2. n = 6 => {2, 3, 5}
+//     3. n = 1 => {}
+
 bool IsPrime(int n) {
     if (n == 1) {
         return false;
@@ -494,7 +499,7 @@ bool IsPrime(int n) {
 
 vector<int> GeneratePrimesMine(int n) {
     vector<int> primes;
-    for (int val = 2; val < n; val++) {
+    for (int val = 2; val <= n; val++) {
         if (IsPrime(val)) {
             primes.emplace_back(val);
         }
@@ -509,6 +514,11 @@ vector<int> GeneratePrimesMine(int n) {
 // n: The value of input
 // Time Complexity: O(nloglogn)
 // Space Complexity: O(n)
+
+// Test Cases:
+//     1. n = 3 => {2, 3}
+//     2. n = 6 => {2, 3, 5}
+//     3. n = 1 => {}
 
 vector<int> GeneratePrimesAuthor(int n) {
     if (n < 2) {
