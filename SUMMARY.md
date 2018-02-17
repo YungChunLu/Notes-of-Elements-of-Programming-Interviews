@@ -6,4 +6,5 @@
 * [Primitive Types](primitive-types.md)
 * [Arrays](a.md)
 * [Strings](strings.md)
+* [Linked Lists](linked-lists.md)
 
