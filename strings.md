@@ -209,5 +209,36 @@ void TextEncoding(string& s) {
 }
 ```
 
+* Merge Two Vectors
+
+```cpp
+// m, n: The size of two arrays, A and B respectively
+// Time Complexity: O(m*n+n)
+// Space Complexity: O(1)
+
+// Test Cases:
+//     1. A = {1, 2, 3, 4, 5}, B = {2, 2, 3} => {1, 2, 2, 2, 3, 3, 4, 5}
+//     2. A = {1, 2, 3}, B = {2, 3, 3} => {1, 2, 2, 3, 3, 3}
+//     3. A = {5, 6, 7}, B = {1, 2, 3} => {1, 2, 3, 5, 6, 7}
+
+void MergeTwoVectors(vector<int>* A_ptr, vector<int>* B_ptr) {
+    vector<int> &A = *A_ptr, &B = *B_ptr;
+    for (int i = 0; i < A.size(); i++) {
+        if (A[i] > B[0]) {
+            swap(A[i], B[0]);
+            // Reorder the vector
+            int j = 0;
+            while (j < B.size() - 1 && B[j] > B[j+1]) {
+                swap(B[j], B[j+1]);
+                j++;
+            }
+        }
+    }
+    for (int j = 0; j < B.size(); j++) {
+        A.emplace_back(B[j]);
+    }
+}
+```
+
 
 
