@@ -136,7 +136,43 @@ string ConvertBaseAuthor(const string& num_as_string, int b1, int b2) {
     }
     return (is_negative ? "-" : "") + (num_as_string == "0" ? "0" : ConstructFromBase(num_as_int, b2));
 }
+```
 
+### 6-4 Replace And Remove
+
+* Mine Solution
+
+```cpp
+// n: The number of char in the array
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Cases:
+//     1. size = 3, s = "abc" => 3
+//     2. size = 2, s = "ab" => 3
+//     3. size = 4, s = "aabb" => 4
+
+int ReplaceAndRemove(int size, char s[]) {
+    // Remove elements
+    int remove_pos = size;
+    for (int i = remove_pos - 1; i >= 0; i--) {
+        if (s[i] != 'b') {
+            s[--remove_pos] = s[i];
+        }
+    }
+    // Add duplicates
+    int add_pos = 0;
+    for (int i = remove_pos; i < size; i++) {
+        if (s[i] == 'a') {
+            s[add_pos++] = 'd';
+            s[add_pos++] = 'd';
+        }
+        else {
+            s[add_pos++] = s[i];
+        }
+    }
+    return add_pos;
+}
 ```
 
 
