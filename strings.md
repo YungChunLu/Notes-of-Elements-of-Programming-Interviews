@@ -175,5 +175,39 @@ int ReplaceAndRemove(int size, char s[]) {
 }
 ```
 
+### 6-4 Variant
+
+* Text Encoding
+
+```cpp
+// n: The number of char in the string, k: The number of punctuation marks
+// Time Complexity: O(n(k+1))
+// Space Complexity: O(1)
+
+// Test Cases:
+//     1. s = "ab.c" => "abDOTc"
+//     2. s = "ab,c" => "abCOMMAc"
+//     3. s = "ab?!" => "abQUESTION MARKEXCLAMATION MARK"
+
+void TextEncoding(string& s) {
+    int pos = 0;
+    while (pos < s.size()) {
+        if (s[pos] == '.') {
+            s = string(s.begin(), s.begin()+pos) + "DOT" + string(s.begin()+pos+1, s.end());
+        }
+        else if (s[pos] == ',') {
+            s = string(s.begin(), s.begin()+pos) + "COMMA" + string(s.begin()+pos+1, s.end());
+        }
+        else if (s[pos] == '?') {
+            s = string(s.begin(), s.begin()+pos) + "QUESTION MARK" + string(s.begin()+pos+1, s.end());
+        }
+        else if (s[pos] == '!') {
+            s = string(s.begin(), s.begin()+pos) + "EXCLAMATION MARK" + string(s.begin()+pos+1, s.end());
+        }
+        pos++;
+    }
+}
+```
+
 
 
