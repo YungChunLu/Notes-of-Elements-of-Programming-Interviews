@@ -9,7 +9,7 @@
 
 ```markdown
 1. insert and delete elements: push_front, emplace_front, pop_front, push_back, emplace_back, pop_back
-2. 
+2.
 ```
 
 ### 7-1 Merge Two Sorted Lists
@@ -34,6 +34,38 @@ shared_ptr<ListNode<int>> MergeTwoSortedLists(shared_ptr<ListNode<int>> L1,
         AppendNode(L1->data <= L2->data ? &L1 : &L2, &tail);
     }
     tail->next = L1 ? L1 : L2;
+    return dummy_head->next;
+}
+```
+
+### 7-2 Reverse A Single Sublist
+
+* Author's solution
+
+```cpp
+// n: The number of finish
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+
+// Test Cases:
+//     1. L = {1, 2, 3, 4, 5}, start = 1, finish = 2 => {2, 1, 3, 4, 5}
+//     2. L = {1, 2, 3, 4, 5}, start = 1, finish = 5 => {5, 4, 3, 2, 1}
+//     3. L = {1, 2, 3, 4, 5}, start = 2, finish = 4 => {1, 4, 3, 2, 5}
+
+shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L, int start, int finish) {
+    shared_ptr<ListNode<int>> dummy_head(new ListNode<int>({0, L}));
+    auto sublist_head = dummy_head;
+    for (int k = 1; k < start; k++) {
+        sublist_head = sublist_head->next;
+    }
+    auto sublist_tail = sublist_head->next;
+    while (start++ < finish) {
+        auto temp = sublist_tail->next;
+        sublist_tail->next = temp->next;
+        temp->next = sublist_head->next;
+        sublist_head->next = temp;
+    }
     return dummy_head->next;
 }
 ```
