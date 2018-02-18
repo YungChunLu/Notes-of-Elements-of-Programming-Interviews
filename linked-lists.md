@@ -70,5 +70,32 @@ shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L, int start,
 }
 ```
 
+### 7-2 Variant
+
+* Reverse a singly linked list
+
+```cpp
+// n: The number of elements in the list
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Cases:
+//     1. L = {1, 2, 3, 4, 5} => {5, 4, 3, 2, 1}
+//     2. L = {1} => {1}
+//     3. L = {1, 2, 3} => {3, 2, 1}
+
+shared_ptr<ListNode<int>> ReverseList(shared_ptr<ListNode<int>> L) {
+    auto dummy_head(new ListNode<int>({0, L}));
+    auto tail = dummy_head->next;
+    while (tail->next) {
+        auto temp = tail->next;
+        tail->next = temp->next;
+        temp->next = dummy_head->next;
+        dummy_head->next = temp;
+    }
+    return dummy_head->next;
+}
+```
+
 
 
