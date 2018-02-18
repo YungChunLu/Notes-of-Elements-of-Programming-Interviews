@@ -75,14 +75,14 @@ shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L, int start,
 * Reverse a singly linked list
 
 ```cpp
-// n: The number of elements in the list
-// Time Complexity: O(n)
+// n: The number of elements in the list, k: The number of nodes at a time
+// Time Complexity: O(n(n+k)/k)
 // Space Complexity: O(1)
 
 // Test Cases:
-//     1. L = {1, 2, 3, 4, 5} => {5, 4, 3, 2, 1}
-//     2. L = {1} => {1}
-//     3. L = {1, 2, 3} => {3, 2, 1}
+//     1. L = {1, 2, 3, 4, 5, 6} => {2, 1, 4, 3, 6, 5}
+//     2. L = {1, 2, 3, 4, 5, 6} => {3, 2, 1, 6, 5, 4}
+//     3. L = {1, 2, 3, 4, 5, 6} => {4, 3, 2, 1, 5, 6}
 
 shared_ptr<ListNode<int>> ReverseList(shared_ptr<ListNode<int>> L) {
     auto dummy_head(new ListNode<int>({0, L}));
@@ -94,6 +94,33 @@ shared_ptr<ListNode<int>> ReverseList(shared_ptr<ListNode<int>> L) {
         dummy_head->next = temp;
     }
     return dummy_head->next;
+}
+```
+
+* Reverse k nodes at a time
+
+```cpp
+// n: The number of elements in the list
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Cases:
+//     1. L = {1, 2, 3, 4, 5} => {5, 4, 3, 2, 1}
+//     2. L = {1} => {1}
+//     3. L = {1, 2, 3} => {3, 2, 1}
+
+shared_ptr<ListNode<int>> ReverseKNodes(shared_ptr<ListNode<int>> L, int k) {
+    auto iter = L;
+    int start = 1, count = 0;
+    while (iter) {
+        iter = iter->next;
+        if (++count % k == 0) {
+            int finish = start + k - 1;
+            L = ReverseSublist(L, start, finish);
+            start += k;
+        }
+    }
+    return L;
 }
 ```
 
