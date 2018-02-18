@@ -126,6 +126,8 @@ shared_ptr<ListNode<int>> ReverseKNodes(shared_ptr<ListNode<int>> L, int k) {
 
 ### 7-3 Test For Cyclicity \(Tricky!\)
 
+* Complex Solution
+
 ```cpp
 // Time Complexity: O(n)
 // Space Complexity: O(1)
@@ -153,6 +155,31 @@ shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>>& head) {
             while (cycle_head != iter) {
                 iter = iter->next;
                 cycle_head = cycle_head->next;
+            }
+            return cycle_head;
+        }
+    }
+    return nullptr;
+}
+```
+
+* Neat Solution
+
+```cpp
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+shared_ptr<ListNode<int>> HasCycleNeat(const shared_ptr<ListNode<int>>& head) {
+    auto fast_iter = head, slow_iter = head;
+    while (fast_iter && fast_iter->next && fast_iter->next->next) {
+        slow_iter = slow_iter->next;
+        fast_iter = fast_iter->next->next;
+        // It has cycle
+        if (slow_iter == fast_iter) {
+            auto cycle_head = head;
+            while (cycle_head != fast_iter) {
+                cycle_head = cycle_head->next;
+                fast_iter = fast_iter->next;
             }
             return cycle_head;
         }
