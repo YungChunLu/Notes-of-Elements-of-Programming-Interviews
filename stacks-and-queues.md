@@ -12,7 +12,7 @@
 
 * Author's solution
 
-```
+```cpp
 // n: The number of elements in the stack
 // Time Complexity: O(1)
 // Space Complexity: O(n)
@@ -22,14 +22,14 @@ public:
     bool Empty() const {
         return element_with_cached_max_.empty();
     }
-    
+
     int Max() const {
         if (Empty()) {
             throw length_error("Max(): empty stack");
         }
         return element_with_cached_max_.top().max;
     }
-    
+
     int Pop() {
         if (Empty()) {
             throw length_error("Pop(): empty stack");
@@ -38,7 +38,7 @@ public:
         element_with_cached_max_.pop();
         return element;
     }
-    
+
     void Push(int x) {
         element_with_cached_max_.emplace(ElementWithCachedMax{x, max(x, Empty() ? x : element_with_cached_max_.top().max)});
     }
