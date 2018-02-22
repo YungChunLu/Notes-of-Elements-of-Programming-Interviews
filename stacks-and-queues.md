@@ -10,7 +10,7 @@
 
 ### 8-1 Implement A Stack With Max API
 
-* Author's solution
+* Author's solution1
 
 ```cpp
 // n: The number of elements in the stack
@@ -47,6 +47,67 @@ private:
         int element, max;
     };
     stack<ElementWithCachedMax> element_with_cached_max_;
+};
+```
+
+* Author's solution2 - Improve space complexity on best-case
+
+```cpp
+// n: The number of elements in the stack
+// Time Complexity: O(1)
+// Space Complexity: O(n)
+
+class Stack {
+public:
+    bool Empty() const {
+        return element_.empty();
+    }
+    
+    int Max() const {
+        if (Empty()) {
+            throw length_error("Max(): empty stack");
+        }
+        return cached_max_with_count_.top().max;
+    }
+    
+    int Pop() {
+        if (Empty()) {
+            throw length_error("Pop(): empty stack");
+        }
+        int element = element_.top();
+        element_.pop();
+        const int current_max = cached_max_with_count_.top().max;
+        if (element == current_max) {
+            int max_count = cached_max_with_count_.top().count;
+            if (--max_count == 0) {
+                cached_max_with_count_.pop();
+            }
+        }
+        return element;
+    }
+    
+    void Push(int x) {
+        element_.emplace(x);
+        if (cached_max_with_count_.empty()) {
+            cached_max_with_count_.emplace(MaxWithCount{x, 1});
+        }
+        else {
+            const int current_max = cached_max_with_count_.top().max;
+            if (x == current_max) {
+                int& max_frequency = cached_max_with_count_.top().count;
+                max_frequency++;
+            }
+            else if (x > current_max) {
+                cached_max_with_count_.emplace(MaxWithCount{x, 1});
+            }
+        }
+    }
+private:
+    stack<int> element_;
+    struct MaxWithCount {
+        int max, count;
+    };
+    stack<MaxWithCount> cached_max_with_count_;
 };
 ```
 
