@@ -5,6 +5,7 @@
   * Need to recognize the stack **LIFO** property when it's applicable. For example, **parsing** typically benefits from a stack.
   * A queue supports two basic operations, **enqueue** and **dequeue**.
   * A** deque** is called a double-ended queue. For insertion, to the front is called **pop**, to the back is called **inject**. For deletion, from the front is called **pop**, from the back is called **eject**.
+  * Need to recognize the queue **FIFO** property when it's applicable. For example, it's useful when the order needs to be preserved.
 * Know the stack libraries
 
 ```markdown
@@ -12,6 +13,10 @@
 ```
 
 * Know the queue libraries
+
+```markdown
+1. Basic methods: front(), back(), push(42), emplace(42), pop()
+```
 
 ### 8-1 Implement A Stack With Max API
 
@@ -115,6 +120,10 @@ private:
     stack<MaxWithCount> cached_max_with_count_;
 };
 ```
+
+### 8-6 Compute Binary Tree Nodes In Order Of Increasing Depth
+
+
 
 
 

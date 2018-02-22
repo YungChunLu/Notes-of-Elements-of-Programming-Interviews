@@ -8,4 +8,5 @@
 * [Strings](strings.md)
 * [Linked Lists](linked-lists.md)
 * [Stacks And Queues](stacks-and-queues.md)
+* [Binary Trees](binary-trees.md)
 
