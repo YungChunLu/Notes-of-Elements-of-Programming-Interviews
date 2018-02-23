@@ -15,36 +15,39 @@
     * inorder: left subtree, root and then right subtree
     * preorder: root, left subtree and then right subtree
     * postorder: left subtree, right subtree and then root
+  * Consider **left-** and **right-skewed trees** when doing complexity analysis.
+  * If each node has a **parent field**, we can make the code simpler and reduce the time and space complexity.
+  * It's easy to make the **mistake** of treating a node that has a **single child** as a leaf.
 
 ### Create A Tree
 
-* This implementation should be improved by using class
+* This implementation should be improved by 
+  * using class
+  * find a way to release un-used nodes
 
 ```cpp
 // n: The number of nodes
 // Time Complexity: O(n)
-// Space Complexity: O(n)
+// Space Complexity: O(1)
 
-unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
-    if (num_nodes <= 0) {
-        return nullptr;
+unique_ptr<BinaryTreeNode<int>> CreateSubTree(int head, int tail) {
+    if (head == tail) {
+        return unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>({head, nullptr, nullptr}));
+    }
+    else if (head < tail) {
+        int mid = (head + tail) / 2;
+        unique_ptr<BinaryTreeNode<int>> node(new BinaryTreeNode<int>({mid, nullptr, nullptr}));
+        node->left = CreateSubTree(head, mid-1);
+        node->right = CreateSubTree(mid+1, tail);
+        return node;
     }
     else {
-        queue<BinaryTreeNode<int>*> nodes;
-        unique_ptr<BinaryTreeNode<int>> root;
-        root.reset(new BinaryTreeNode<int>());
-        nodes.push(root.get());
-        for (int data = 1; data <= num_nodes; data++) {
-            BinaryTreeNode<int>* node = nodes.front();
-            nodes.pop();
-            *node = BinaryTreeNode<int>{data, nullptr, nullptr};
-            node->left.reset(new BinaryTreeNode<int>());
-            node->right.reset(new BinaryTreeNode<int>());
-            nodes.push(node->left.get());
-            nodes.push(node->right.get());
-        }
-        return root;
+        return nullptr;
     }
+}
+
+unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
+    return num_nodes <= 0 ? nullptr : CreateSubTree(0, num_nodes-1);
 }
 ```
 
