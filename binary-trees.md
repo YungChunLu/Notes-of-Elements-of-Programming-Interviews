@@ -21,9 +21,7 @@
 
 ### Create A Tree
 
-* This implementation should be improved by 
-  * using class
-  * find a way to release un-used nodes
+* This implementation should be improved by using class
 
 ```cpp
 // n: The number of nodes
@@ -48,6 +46,36 @@ unique_ptr<BinaryTreeNode<int>> CreateSubTree(int head, int tail) {
 
 unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
     return num_nodes <= 0 ? nullptr : CreateSubTree(0, num_nodes-1);
+}
+```
+
+### 9-1 Test If A Binary Tree Is Height-Balanced
+
+* Author's Solution
+
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+BalancedStatusWithHeight CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tree){
+    // Base case
+    if (tree == nullptr) {
+        return {-1, true};
+    }
+    BalancedStatusWithHeight left_tree = CheckBalanced(tree->left);
+    if (!left_tree.balanced) {
+        return {left_tree.height, false};
+    }
+    BalancedStatusWithHeight right_tree = CheckBalanced(tree->right);
+    if (!right_tree.balanced) {
+        return {right_tree.height, false};
+    }
+    return {max(left_tree.height, right_tree.height)+1, abs(left_tree.height - right_tree.height) <= 1};
+};
+
+bool IsBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
+    return CheckBalanced(tree).balanced;
 }
 ```
 
