@@ -16,5 +16,37 @@
     * preorder: root, left subtree and then right subtree
     * postorder: left subtree, right subtree and then root
 
+### Create A Tree
+
+* This implementation should be improved by using class
+
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
+    if (num_nodes <= 0) {
+        return nullptr;
+    }
+    else {
+        queue<BinaryTreeNode<int>*> nodes;
+        unique_ptr<BinaryTreeNode<int>> root;
+        root.reset(new BinaryTreeNode<int>());
+        nodes.push(root.get());
+        for (int data = 1; data <= num_nodes; data++) {
+            BinaryTreeNode<int>* node = nodes.front();
+            nodes.pop();
+            *node = BinaryTreeNode<int>{data, nullptr, nullptr};
+            node->left.reset(new BinaryTreeNode<int>());
+            node->right.reset(new BinaryTreeNode<int>());
+            nodes.push(node->left.get());
+            nodes.push(node->right.get());
+        }
+        return root;
+    }
+}
+```
+
 
 
