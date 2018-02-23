@@ -11,6 +11,10 @@
   * A **full binary tree** is a binary tree in which every node other than the leaves has two children.
   * A **perfect binary tree** is a full binary tree in which all leaves are at the same depth
   * A **complete binary tree** is a binary tree in which every level is completed filled and all nodes are as far left as possible.
+  * Three traversing
+    * inorder: left subtree, root and then right subtree
+    * preorder: root, left subtree and then right subtree
+    * postorder: left subtree, right subtree and then root
 
 
 
