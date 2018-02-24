@@ -56,7 +56,12 @@ unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
 ```cpp
 // n: The number of nodes
 // Time Complexity: O(n)
-// Space Complexity: O(1)
+// Space Complexity: O(log(n))
+
+struct BalancedStatusWithHeight {
+    int height;
+    bool balanced;
+};
 
 BalancedStatusWithHeight CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tree){
     // Base case
@@ -76,6 +81,40 @@ BalancedStatusWithHeight CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tr
 
 bool IsBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
     return CheckBalanced(tree).balanced;
+}
+```
+
+### 9-1-Variant
+
+* Find the size of the largest complete subtree
+
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(log(n))
+
+struct CompleteTreeSize {
+    int size, depth;
+    bool full, complete;
+};
+
+CompleteTreeSize FindCompleteTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
+    if (tree == nullptr) {
+        return {0, -1, true, true};
+    }
+    CompleteTreeSize right_tree = FindCompleteTree(tree->right);
+    CompleteTreeSize left_tree = FindCompleteTree(tree->left);
+    int depth = max(left_tree.depth, right_tree.depth) + 1;
+    bool complete = right_tree.full && left_tree.complete && \
+                    left_tree.depth - right_tree.depth >= 0 && \
+                    left_tree.depth - right_tree.depth <= 1;
+    bool full = right_tree.full && left_tree.full && left_tree.depth - right_tree.depth == 0;
+    if (complete) {
+        return {right_tree.size + left_tree.size + 1, depth, full, complete};
+    }
+    else {
+        return {max(right_tree.size, left_tree.size), depth, full, complete};
+    }
 }
 ```
 
