@@ -18,15 +18,23 @@
   * Consider **left-** and **right-skewed trees** when doing complexity analysis.
   * If each node has a **parent field**, we can make the code simpler and reduce the time and space complexity.
   * It's easy to make the **mistake** of treating a node that has a **single child** as a leaf.
+  * **Lowest Common Ancestor\(LCA\)** of two nodes is the common ancestor which is furthest from the root.
 
 ### Create A Tree
 
-* This implementation should be improved by using class
+* Without parent field
+  * Todo: This implementation should be improved by using class
 
 ```cpp
 // n: The number of nodes
 // Time Complexity: O(n)
 // Space Complexity: O(1)
+
+template <typename T>
+struct BinaryTreeNode {
+    T data;
+    unique_ptr<BinaryTreeNode<T>> left, right;
+};
 
 unique_ptr<BinaryTreeNode<int>> CreateSubTree(int head, int tail) {
     if (head == tail) {
@@ -46,6 +54,42 @@ unique_ptr<BinaryTreeNode<int>> CreateSubTree(int head, int tail) {
 
 unique_ptr<BinaryTreeNode<int>> MakeTreeByNode(int num_nodes) {
     return num_nodes <= 0 ? nullptr : CreateSubTree(0, num_nodes-1);
+}
+```
+
+* With parent field
+  * Todo: This implementation should be improved by using class
+
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+template <typename T>
+struct BinaryTreeNodeWithParent {
+    T data;
+    unique_ptr<BinaryTreeNodeWithParent<T>> left, right;
+    BinaryTreeNodeWithParent<T>* parent;
+};
+
+unique_ptr<BinaryTreeNodeWithParent<int>> CreateSubTree(int head, int tail, BinaryTreeNodeWithParent<int>* parent) {
+    if (head == tail) {
+        return unique_ptr<BinaryTreeNodeWithParent<int>> (new BinaryTreeNodeWithParent<int>({head, nullptr, nullptr, parent}));
+    }
+    else if (head < tail) {
+        int mid = (head + tail) / 2;
+        unique_ptr<BinaryTreeNodeWithParent<int>> node(new BinaryTreeNodeWithParent<int>({mid, nullptr, nullptr, parent}));
+        node->left = CreateSubTree(head, mid-1, node.get());
+        node->right = CreateSubTree(mid+1, tail, node.get());
+        return node;
+    }
+    else {
+        return nullptr;
+    }
+}
+
+unique_ptr<BinaryTreeNodeWithParent<int>> MakeTreeByNodeWithParent(int num_nodes) {
+    return num_nodes <= 0 ? nullptr : CreateSubTree(0, num_nodes-1, nullptr);
 }
 ```
 
@@ -149,6 +193,50 @@ KBalancedTreeWithCount IsKBalanced(const unique_ptr<BinaryTreeNode<int>>& root, 
 
 const unique_ptr<BinaryTreeNode<int>>& CheckKBalancedTree(const unique_ptr<BinaryTreeNode<int>>& root, int k) {
     return IsKBalanced(root, k).node;
+}
+```
+
+### 9-3 Compute The Lowest Common Ancestor In A Binary Tree
+
+
+
+### 9-4 Compute The LCA When Nodes Have Parent Pointers
+
+* Author's Solution
+
+```cpp
+// n: The height of input node
+// Time Complexity: O(h)
+// Space Complexity: O(1)
+
+int GetDepth(const BinaryTreeNodeWithParent<int>* node) {
+    int depth = 0;
+    while (node) {
+        depth++;
+        node = node->parent;
+    }
+    return depth;
+}
+
+BinaryTreeNodeWithParent<int>* LCA(const unique_ptr<BinaryTreeNodeWithParent<int>>& node_0,
+                                   const unique_ptr<BinaryTreeNodeWithParent<int>>& node_1) {
+    auto *iter_0 = node_0.get(), *iter_1 = node_1.get();
+    int depth_0 = GetDepth(iter_0), depth_1 = GetDepth(iter_1);
+    // When node_1 is deeper than node_0
+    if (depth_1 > depth_0) {
+        swap(iter_0, iter_1);
+        swap(depth_0, depth_1);
+    }
+    // Ascends from the deeper node
+    while (depth_0-- > depth_1) {
+        iter_0 = iter_0->parent;
+    }
+    // Ascends both nodes until reaching the LCA
+    while (iter_0 != iter_1) {
+        iter_0 = iter_0->parent;
+        iter_1 = iter_1->parent;
+    }
+    return iter_0;
 }
 ```
 
