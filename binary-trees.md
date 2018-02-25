@@ -198,7 +198,42 @@ const unique_ptr<BinaryTreeNode<int>>& CheckKBalancedTree(const unique_ptr<Binar
 
 ### 9-3 Compute The Lowest Common Ancestor In A Binary Tree
 
+* Author's Solution
 
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(log(n))
+
+struct Status {
+    int num_target_nodes;
+    BinaryTreeNode<int>* ancestor;
+};
+
+Status LCAHelper(const unique_ptr<BinaryTreeNode<int>>& root,
+                 const unique_ptr<BinaryTreeNode<int>>& node_0,
+                 const unique_ptr<BinaryTreeNode<int>>& node_1) {
+    if (root) {
+        Status left_status = LCAHelper(root->left, node_0, node_1);
+        if (left_status.ancestor) {
+            return left_status;
+        }
+        Status right_status = LCAHelper(root->right, node_0, node_1);
+        if (right_status.ancestor) {
+            return right_status;
+        }
+        int num_target_noodes = left_status.num_target_nodes + right_status.num_target_nodes + (root == node_0) + (root == node_1);
+        return Status({num_target_noodes, num_target_noodes == 2 ? root.get() : nullptr});
+    }
+    return Status();
+}
+
+BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& root,
+                         const unique_ptr<BinaryTreeNode<int>>& node_0,
+                         const unique_ptr<BinaryTreeNode<int>>& node_1) {
+    return LCAHelper(root, node_0, node_1).ancestor;
+}
+```
 
 ### 9-4 Compute The LCA When Nodes Have Parent Pointers
 
