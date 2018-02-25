@@ -118,5 +118,39 @@ CompleteTreeSize FindCompleteTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
 }
 ```
 
+* Find the first node which is not k-balanced. k-balanced means that the difference in the number of nodes in left- and right-subtree is no more than k.
+
+```cpp
+// n: The number of nodes
+// Time Complexity: O(n)
+// Space Complexity: O(log(n))
+
+struct KBalancedTreeWithCount {
+    int counts;
+    bool balanced;
+    const unique_ptr<BinaryTreeNode<int>>& node;
+};
+
+KBalancedTreeWithCount IsKBalanced(const unique_ptr<BinaryTreeNode<int>>& root, int k) {
+    if (root) {
+        KBalancedTreeWithCount left_tree = IsKBalanced(root->left, k);
+        if (!left_tree.balanced) {
+            return left_tree;
+        }
+        KBalancedTreeWithCount right_tree = IsKBalanced(root->right, k);
+        if (!right_tree.balanced) {
+            return right_tree;
+        }
+        bool balanced = abs(left_tree.counts - right_tree.counts) <= k;
+        return balanced ? KBalancedTreeWithCount({left_tree.counts + right_tree.counts + 1, balanced, nullptr}) : KBalancedTreeWithCount({left_tree.counts + right_tree.counts + 1, balanced, root});
+    }
+    return KBalancedTreeWithCount({0, true, nullptr});
+}
+
+const unique_ptr<BinaryTreeNode<int>>& CheckKBalancedTree(const unique_ptr<BinaryTreeNode<int>>& root, int k) {
+    return IsKBalanced(root, k).node;
+}
+```
+
 
 
