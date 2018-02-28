@@ -57,7 +57,6 @@ vector<string> TopK(int k, vector<string>::const_iterator stream_begin,
 // Time Complexity: O(nlogk)
 // Space Complexity: O(k)
 
-
 struct IteratorCurrentAndEnd {
     bool operator>(const IteratorCurrentAndEnd& that) const {
         return *current > *that.current;
@@ -87,6 +86,45 @@ vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
         }
     }
     return result;
+}
+```
+
+### 10-4 Compute The K Closest Stars
+
+* Mine Solution
+
+```cpp
+// n: The number of stars
+// Time Complexity: O(nlogk)
+// Space Complexity: O(k)
+
+struct Star {
+    bool operator<(const Star& that) const {
+        return Distance() < that.Distance();
+    }
+    double Distance() const {return sqrt(x * x + y * y + z * z);};
+    double x, y, z;
+};
+
+vector<Star> FindClosestKStars(vector<Star>::const_iterator star_begin,
+                               const vector<Star>::const_iterator& star_end,
+                               int k) {
+    // Create a max heap
+    priority_queue<Star, vector<Star>, less<>> max_heap;
+    vector<Star> result;
+    // Store k closest stars into the heap
+    while (star_begin != star_end) {
+        max_heap.emplace(*star_begin++);
+        if (max_heap.size() > k) {
+            max_heap.pop();
+        }
+    }
+    while (max_heap.size()) {
+        result.emplace_back(max_heap.top());
+        max_heap.pop();
+    }
+    // Return result in ascending order
+    return {result.rbegin(), result.rend()};
 }
 ```
 
