@@ -128,5 +128,31 @@ vector<Star> FindClosestKStars(vector<Star>::const_iterator star_begin,
 }
 ```
 
+### 10-4 Variant
+
+* Print the k largest element. The worst case occurs when inputs is in ascending order.
+
+```cpp
+// n: The number of stars
+// Time Complexity: O(nlogk)
+// Space Complexity: O(k)
+
+void PrintKthLargestVal(const vector<int>& vals, int k) {
+    // Create a min heap
+    priority_queue<int, vector<int>, greater<>> min_heap;
+    for (int val : vals) {
+        if (min_heap.size() < k || (min_heap.size() == k && min_heap.top() < val)) {
+            min_heap.emplace(val);
+        }
+        if (min_heap.size() > k) {
+            min_heap.pop();
+        }
+        if (min_heap.size() == k) {
+            cout << min_heap.top() << endl;
+        }
+    }
+}
+```
+
 
 
