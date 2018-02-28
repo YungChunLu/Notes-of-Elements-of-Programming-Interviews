@@ -2,5 +2,10 @@
 * [Why C++ Supports both Class and Typename for Type Parameters](https://web.archive.org/web/20060619131004/http://blogs.msdn.com/slippman/archive/2004/08/11/212768.aspx)
 * [Difference between each casting methods](https://stackoverflow.com/questions/28002/regular-cast-vs-static-cast-vs-dynamic-cast)
 
+# Interesting Questions
+
+* [Q: Is pointer equal to iterator](https://stackoverflow.com/questions/30950285/iterator-pointer-or-what-is-it)
+  * A: pointer is a kind of iterator and it has properties other than iterator.
+
 
 
