@@ -15,6 +15,10 @@
 * Binary Search
 
 ```cpp
+// n: The number of elements
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
 int bsearch(int t, const vector<int>& A) {
     int L = 0, U = A.size() - 1;
     while (L <= U) {
