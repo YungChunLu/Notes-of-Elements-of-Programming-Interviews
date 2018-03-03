@@ -20,10 +20,10 @@
 // Space Complexity: O(1)
 
 int bsearch(int t, const vector<int>& A) {
-    int L = 0, U = A.size() - 1;
+    int L = 0, U = (int)A.size() - 1;
     while (L <= U) {
         // Don't use M = (L + U) / 2, which can potentially lead to overflow
-        int M = L + (U - L) / 2
+        int M = L + (U - L) / 2;
         if (A[M] < t) {
             L = M + 1;
         } else if (A[M] == t) {
@@ -33,6 +33,28 @@ int bsearch(int t, const vector<int>& A) {
         }
     }
     return -1;
+}
+```
+
+* User-defined comparable objects
+
+```cpp
+struct Student {
+    string name;
+    double grade_point_average;
+};
+
+const static function<bool(const Student&, const Student&)> CompGPA = [](const Student& a, const Student& b){
+    cout << a.name << b.name << endl;
+    if (a.grade_point_average != b.grade_point_average) {
+        return a.grade_point_average > b.grade_point_average;
+    }
+    return a.name < b.name;
+};
+
+bool SearchStudent(const vector<Student>& students, const Student& target,
+                   const function<bool(const Student&, const Student&)>& comp_GPA) {
+    return binary_search(students.begin(), students.end(), target, comp_GPA);
 }
 ```
 
