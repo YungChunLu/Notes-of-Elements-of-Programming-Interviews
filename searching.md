@@ -2,6 +2,12 @@
 
 * Tips
 
+  * Binary search can also be used to find **an interval of real numbers**
+
+  * If the solution uses sorting, and the computation performed after sorting is faster than sorting, **looking for solutions that do not perform a complete sort.**
+
+  * Consider **time/space tradeoffs**, such as making multiple passes through the data.
+
   * Valuable Questions
 
     * Is the underlying collection static or dynamic?
@@ -63,6 +69,13 @@ bool SearchStudent(const vector<Student>& students, const Student& target,
 ```
 
 * Know the searching libraries
+
+```markdown
+1. To check a targeted value is presented: binary_search(A.begin(), A.end(), target)
+2. To find the first element that is not less than a targeted value in a ascending collection: lower_bound(A.begin(), A.end(), target)
+3. To find the first element that is greater than a targeted value in a ascending collection: upper_bound(A.begin(), A.end(), target)
+
+```
 
 
 
