@@ -39,6 +39,10 @@ int bsearch(int t, const vector<int>& A) {
 * User-defined comparable objects
 
 ```cpp
+// n: The number of elements
+// Time Complexity: O(logn), assuming accessing the element is O(1)
+// Space Complexity: O(1)
+
 struct Student {
     string name;
     double grade_point_average;
