@@ -76,5 +76,57 @@ bool SearchStudent(const vector<Student>& students, const Student& target,
 3. To find the first element that is greater than a targeted value in a ascending collection: upper_bound(A.begin(), A.end(), target)
 ```
 
+### Search A Sorted Array For First Occurrence of k
+
+* Mine Solution
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(n+logn)
+// Space Complexity: O(1)
+
+int SearchFirstOfK_M(const vector<int>& A, int k) {
+    int left = 0, right = (int)A.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (k < A[mid]) {
+            right = mid - 1;
+        } else if (k == A[mid]) {
+            while (k == A[mid - 1]) {
+                mid--;
+            }
+            return mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return -1;
+}
+```
+
+* Author's Solution
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+int SearchFirstOfK_A(const vector<int>& A, int k) {
+    int left = 0, right = (int)A.size() - 1, result = -1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (k < A[mid]) {
+            right = mid - 1;
+        } else if (k == A[mid]) {
+            result = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return result;
+}
+```
+
 
 
