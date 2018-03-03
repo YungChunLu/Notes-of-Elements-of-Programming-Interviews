@@ -74,7 +74,6 @@ bool SearchStudent(const vector<Student>& students, const Student& target,
 1. To check a targeted value is presented: binary_search(A.begin(), A.end(), target)
 2. To find the first element that is not less than a targeted value in a ascending collection: lower_bound(A.begin(), A.end(), target)
 3. To find the first element that is greater than a targeted value in a ascending collection: upper_bound(A.begin(), A.end(), target)
-
 ```
 
 
