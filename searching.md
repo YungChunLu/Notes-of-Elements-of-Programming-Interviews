@@ -152,5 +152,28 @@ int SearchUpperBound(const vector<int>& A, int k) {
 }
 ```
 
+* Find the index of a local minimum when the boundary of a collection is descending and ascending. local minimum is less than or equal to its neighbors. Notes that the program will not work if local minimum must be less than to its neighbors.
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+int SearchLocalMinimum(const vector<int>& A) {
+    int left = 0, right = (int)A.size() - 1;
+    while (left + 1 < right) {
+        int mid = left + (right - left) / 2;
+        if (A[mid-1] >= A[mid] && A[mid] <= A[mid+1]) {
+            return mid;
+        } else if (A[mid-1] < A[mid]){
+            right = mid;
+        } else {
+            left = mid;
+        }
+    }
+    return -1;
+}
+```
+
 
 
