@@ -175,5 +175,46 @@ int SearchLocalMinimum(const vector<int>& A) {
 }
 ```
 
+* Find the interval enclosing the target number
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(n)
+// Space Complexity: O(logn)
+
+struct Interval {
+    int L = -1, U = -1;
+};
+
+void SearchEnclosingIntervalHelper(const vector<int>& A, int k, int left, int right, Interval& interval) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (k < A[mid]) {
+            right = mid - 1;
+        } else if (k == A[mid]) {
+            if (interval.L < 0) {
+                interval.L = mid;
+                interval.U = mid;
+            } else if (interval.L > mid){
+                interval.L = mid;
+            } else if (interval.U < mid){
+                interval.U = mid;
+            }
+            SearchEnclosingIntervalHelper(A, k, left, mid-1, interval);
+            SearchEnclosingIntervalHelper(A, k, mid+1, right, interval);
+            break;
+        } else {
+            left = mid + 1;
+        }
+    }
+}
+
+Interval SearchEnclosingInterval(const vector<int>& A, int k) {
+    Interval interval = Interval();
+    SearchEnclosingIntervalHelper(A, k, 0, (int)A.size()-1, interval);
+    return interval;
+}
+```
+
 
 
