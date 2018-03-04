@@ -192,6 +192,7 @@ void SearchEnclosingIntervalHelper(const vector<int>& A, int k, int left, int ri
         if (k < A[mid]) {
             right = mid - 1;
         } else if (k == A[mid]) {
+            // When finding out an interval enclosing k
             if (interval.L < 0) {
                 interval.L = mid;
                 interval.U = mid;
@@ -248,6 +249,32 @@ bool CheckPrefix(const vector<string>& A, const string& p) {
         }
     }
     return false;
+}
+```
+
+### Compute The Integer Square Root
+
+* Mine Solution
+
+```cpp
+// n: The value of a target
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+int SquareRoot_M(int k) {
+    int left = 0, right = k, result = 0;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (mid * mid < k) {
+            result = mid;
+            left = mid + 1;
+        } else if (mid * mid == k){
+            return mid;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return result;
 }
 ```
 
