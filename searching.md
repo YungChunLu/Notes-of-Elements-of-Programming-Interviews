@@ -216,5 +216,40 @@ Interval SearchEnclosingInterval(const vector<int>& A, int k) {
 }
 ```
 
+* Check if **p** is a prefix of a string in an array of sorted strings.
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+bool is_prefix(const string& a, const string& p) {
+    if (a.size() < p.size()) {
+        return false;
+    }
+    for (int i = 0; i < p.size(); i++) {
+        if (a[i] != p[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool CheckPrefix(const vector<string>& A, const string& p) {
+    int left = 0, right = (int)A.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (is_prefix(A[mid], p)) {
+            return true;
+        } else if (lexicographical_compare(A[mid].begin(), A[mid].end(), p.begin(), p.end())) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return false;
+}
+```
+
 
 
