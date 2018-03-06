@@ -288,30 +288,28 @@ int SquareRoot_M(int k) {
 // Space Complexity: O(1)
 
 template <typename Compare>
-int PartitionAroundPivot(int left, int right, int pivot_idx, Compare comp, vector<int>* A_ptr) {
+int PartitionAroundPivot_A(int left, int right, int pivot_idx, Compare comp, vector<int>* A_ptr) {
     vector<int>& A = *A_ptr;
-    int smaller = right, larger = left, new_pivot_idx = left, pivot_val = A[pivot_idx];
-    while (larger <= smaller) {
-        if (A[larger] > pivot_val) {
-            swap(A[new_pivot_idx++], A[larger++]);
-        } else if (A[larger] == pivot_val) {
-            larger++;
-        } else {
-            swap(A[smaller--], A[larger]);
+    int pivot_val = A[pivot_idx], new_pivot_idx = left;
+    swap(A[pivot_idx], A[right]);
+    for (int i = left; i < right; i++) {
+        if (comp(A[i], pivot_val)) {
+            swap(A[i], A[new_pivot_idx]);
         }
     }
+    swap(A[new_pivot_idx], A[right]);
     return new_pivot_idx;
 }
 
 template <typename Compare>
-int FindKth(int k, Compare comp, vector<int>* A_ptr) {
+int FindKth_A(int k, Compare comp, vector<int>* A_ptr) {
     vector<int>& A = *A_ptr;
     int left = 0, right = (int)A.size() - 1;
     default_random_engine gen((random_device())());
     while (left <= right) {
         // Generate a random integer in [left, right]
         int pivot_idx = uniform_int_distribution<int>{left, right}(gen);
-        int new_pivot_idx = PartitionAroundPivot(left, right, pivot_idx, comp, &A);
+        int new_pivot_idx = PartitionAroundPivot_A(left, right, pivot_idx, comp, &A);
         if (new_pivot_idx == k-1) {
             return A[new_pivot_idx];
         } else if (new_pivot_idx > k-1){
@@ -323,8 +321,8 @@ int FindKth(int k, Compare comp, vector<int>* A_ptr) {
     throw length_error("FindKth: The kth largest element doesn't exist.");
 }
 
-int FindKthLargest(int k, vector<int>* A_ptr) {
-    return FindKth(k, greater<int>(), A_ptr);
+int FindKthLargest_A(int k, vector<int>* A_ptr) {
+    return FindKth_A(k, greater<int>(), A_ptr);
 }
 ```
 
@@ -345,6 +343,54 @@ float FindMedian(vector<int>* A_ptr) {
     } else {
         return (float)FindKth(k+1, greater<int>(), A_ptr);
     }
+}
+```
+
+* Find the kth largest element in the presence of duplicates
+
+```cpp
+// n: The value of a target
+// Time Complexity: O(n^2), but in average it should be O(n)
+// Space Complexity: O(1)
+
+template <typename Compare>
+int PartitionAroundPivot_M(int left, int right, int pivot_idx, Compare comp, vector<int>* A_ptr) {
+    vector<int>& A = *A_ptr;
+    int smaller = right, larger = left, new_pivot_idx = left, pivot_val = A[pivot_idx];
+    while (larger <= smaller) {
+        if (A[larger] > pivot_val) {
+            swap(A[new_pivot_idx++], A[larger++]);
+        } else if (A[larger] == pivot_val) {
+            larger++;
+        } else {
+            swap(A[smaller--], A[larger]);
+        }
+    }
+    return new_pivot_idx;
+}
+
+template <typename Compare>
+int FindKth_M(int k, Compare comp, vector<int>* A_ptr) {
+    vector<int>& A = *A_ptr;
+    int left = 0, right = (int)A.size() - 1;
+    default_random_engine gen((random_device())());
+    while (left <= right) {
+        // Generate a random integer in [left, right]
+        int pivot_idx = uniform_int_distribution<int>{left, right}(gen);
+        int new_pivot_idx = PartitionAroundPivot_M(left, right, pivot_idx, comp, &A);
+        if (new_pivot_idx == k-1) {
+            return A[new_pivot_idx];
+        } else if (new_pivot_idx > k-1){
+            right = new_pivot_idx - 1;
+        } else {
+            left = new_pivot_idx + 1;
+        }
+    }
+    throw length_error("FindKth: The kth largest element doesn't exist.");
+}
+
+int FindKthLargest_M(int k, vector<int>* A_ptr) {
+    return FindKth_M(k, greater<int>(), A_ptr);
 }
 ```
 
