@@ -252,7 +252,7 @@ bool CheckPrefix(const vector<string>& A, const string& p) {
 }
 ```
 
-### Compute The Integer Square Root
+### 11-4 Compute The Integer Square Root
 
 * Mine Solution
 
@@ -278,7 +278,7 @@ int SquareRoot_M(int k) {
 }
 ```
 
-### Find The Kth Largest Element
+### 11-8 Find The Kth Largest Element
 
 * Author's Solution
 
@@ -325,6 +325,26 @@ int FindKth(int k, Compare comp, vector<int>* A_ptr) {
 
 int FindKthLargest(int k, vector<int>* A_ptr) {
     return FindKth(k, greater<int>(), A_ptr);
+}
+```
+
+### 11-8 Variant
+
+* Find the median of an array
+
+```cpp
+// n: The value of a target
+// Time Complexity: O(n^2), but in average it should be O(n)
+// Space Complexity: O(1)
+
+float FindMedian(vector<int>* A_ptr) {
+    vector<int>& A = *A_ptr;
+    int k = (int)A.size() / 2;
+    if ((A.size()&1) == 0) {
+        return 0.5 * (FindKth(k, greater<int>(), A_ptr) + FindKth(k+1, greater<int>(), A_ptr));
+    } else {
+        return (float)FindKth(k+1, greater<int>(), A_ptr);
+    }
 }
 ```
 
