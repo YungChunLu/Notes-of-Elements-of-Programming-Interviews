@@ -394,5 +394,47 @@ int FindKthLargest_M(int k, vector<int>* A_ptr) {
 }
 ```
 
+* Find the position of a mail box which results in the minimum distance to all the apartment
+
+```cpp
+// n: The number of apartments
+// Time Complexity: O(nlogn)
+// Space Complexity: O(1)
+
+struct Apartment {
+    int people, distance;
+};
+
+int GetTotalDistance(vector<Apartment>* A_ptr, int box_place){
+    vector<Apartment>& A = *A_ptr;
+    int total = 0;
+    for (Apartment apr: A) {
+        total += apr.people * abs(apr.distance - box_place);
+    }
+    return total;
+};
+
+int FindPlaceForBox(vector<Apartment>* A_ptr) {
+    vector<Apartment>& A = *A_ptr;
+    int size = (int)A.size() - 1;
+    int left = A[0].distance, right = A[size].distance, mid = left;
+    do {
+        int mid = left + (right - left) / 2;
+        // Calculate the distances
+        int mid_distance = GetTotalDistance(&A, mid),
+        left_distance = GetTotalDistance(&A, mid-1),
+        right_distance = GetTotalDistance(&A, mid+1);
+        if (mid_distance <= left_distance && mid_distance <= right_distance) {
+            return mid;
+        } else if (mid_distance <= left_distance && right_distance < mid_distance) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    } while (left <= right);
+    return mid;
+}
+```
+
 
 
