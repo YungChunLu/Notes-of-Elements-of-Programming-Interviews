@@ -7,6 +7,7 @@
   * One disadvantage of hash tables is the need for a good hash function but this is rarely an issue in practice.
   * Hard requirement - equal keys should have equal hash codes.
   * Soft requirement - generating uniformly keys
+  * Hash codes are often cached for performance
 * Find anagram from a collection of strings. Note: the insertion is O\(m\) because it copy a string
 
 ```cpp
