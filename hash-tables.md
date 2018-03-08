@@ -9,14 +9,20 @@
   * Soft requirement - generating uniformly keys
   * Hash codes are often cached for performance
   * [Why needing equal function for hashing?](https://stackoverflow.com/questions/39107488/what-is-keyequal-in-stdunordered-set-for)
+  * Hash tables have the **best theoretical and real-world performance** for lookup, insert and delete.
+  * Consider using a hash code as a **signature** to enhance performance.
 * Know the hash table libraries
 
 ```markdown
 1. Two common hash table-based data structures: unorded_set and unorded_map
 2. For unorded_set, following are the important functions:
- * insert(val): returns a pair of iterator and boolean where the iterator points to 
- the newly inserted element or the element whose key is equivalent, and the boolean
- indicating if the element was added successfully.
+    * insert(val): returns a pair of iterator and boolean where the iterator points to 
+    the newly inserted element or the element whose key is equivalent, and the boolean
+    indicating if the element was added successfully.
+    * find(k): returns the iterator to the element if it was present;
+    otherwise, a special iterator end() is returned.
+3. The order in which keys are traversed by the iterator returned by **begin()** is unspecified;
+it may even change with time.
 ```
 
 * Find anagram from a collection of strings. Note: the insertion is O\(m\) because it copy a string
