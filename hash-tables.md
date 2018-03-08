@@ -14,9 +14,9 @@
 ```markdown
 1. Two common hash table-based data structures: unorded_set and unorded_map
 2. For unorded_set, following are the important functions:
-    * insert(val): returns a pair of iterator and boolean where the iterator points to 
-    the newly inserted element or the element whose key is equivalent, and the boolean
-    indicating if the element was added successfully.
+ * insert(val): returns a pair of iterator and boolean where the iterator points to 
+ the newly inserted element or the element whose key is equivalent, and the boolean
+ indicating if the element was added successfully.
 ```
 
 * Find anagram from a collection of strings. Note: the insertion is O\(m\) because it copy a string
