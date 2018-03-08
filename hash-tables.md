@@ -8,6 +8,7 @@
   * Hard requirement - equal keys should have equal hash codes.
   * Soft requirement - generating uniformly keys
   * Hash codes are often cached for performance
+  * [Why needing equal function for hashing?](https://stackoverflow.com/questions/39107488/what-is-keyequal-in-stdunordered-set-for)
 * Find anagram from a collection of strings. Note: the insertion is O\(m\) because it copy a string
 
 ```cpp
@@ -62,6 +63,38 @@ vector<vector<string>> FindAnagrams_M(const vector<string>& dictionary) {
         }
     }
     return anagram_groups;
+}
+```
+
+* Merge duplicated contacts
+
+```cpp
+// n: The number of strings
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+struct ContactList {
+    // Equal function for hash.
+    bool operator==(const ContactList& that) const {
+        return unordered_set<string>(names.begin(), names.end()) == unordered_set<string>(that.names.begin(), that.names.end());
+    }
+    vector<string> names;
+};
+
+// Hash function for ContactList
+struct HashContactList {
+    size_t operator()(const ContactList& contacts) const {
+        size_t hash_code = 0;
+        for (const string& name : unordered_set<string>(contacts.names.begin(), contacts.names.end())) {
+            hash_code ^= hash<string>()(name);
+        }
+        return hash_code;
+    }
+};
+
+vector<ContactList> MergeContactLists(const vector<ContactList>& contacts) {
+    unordered_set<ContactList, HashContactList> unique_contacts(contacts.begin(), contacts.end());
+    return {unique_contacts.begin(), unique_contacts.end()};
 }
 ```
 
