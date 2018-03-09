@@ -114,5 +114,38 @@ vector<ContactList> MergeContactLists(const vector<ContactList>& contacts) {
 }
 ```
 
+### 12-2 Is An Anonymous Letter Constructible
+
+* Author's Solution
+
+```cpp
+// n: The number of chars in letter text, m: The number of chars in magazine text
+// Time Complexity: O(m+n)
+// L: The number of distinct chars in letter text
+// Space Complexity: O(L)
+
+bool IsLetterConstructibleFromMagazine(const string& letter_text, const string& magazine_text) {
+    unordered_map<char, int> char_freq_for_letter_text;
+    // Compute the frequency for all char in lettter_text
+    for (char c : letter_text) {
+        char_freq_for_letter_text[c]++;
+    }
+    // Check if char in magazine_text can be found in letter_text
+    for (char c : magazine_text) {
+        if (char_freq_for_letter_text.empty()) {
+            break;
+        }
+        auto it = char_freq_for_letter_text.find(c);
+        if (it != char_freq_for_letter_text.cend()) {
+            --it->second;
+            if (it->second == 0) {
+                char_freq_for_letter_text.erase(it);
+            }
+        }
+    }
+    return char_freq_for_letter_text.empty();
+}
+```
+
 
 
