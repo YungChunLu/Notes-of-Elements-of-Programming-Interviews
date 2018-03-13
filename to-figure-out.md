@@ -2,13 +2,14 @@
 * [Why C++ Supports both Class and Typename for Type Parameters](https://web.archive.org/web/20060619131004/http://blogs.msdn.com/slippman/archive/2004/08/11/212768.aspx)
 * [Difference between each casting methods](https://stackoverflow.com/questions/28002/regular-cast-vs-static-cast-vs-dynamic-cast)
 * [When to use **explicit** specifier](http://www.cplusplus.com/forum/general/168292/)
-* [Difference between copy initialization and direct initialization](https://stackoverflow.com/questions/1051379/is-there-a-difference-in-c-between-copy-initialization-and-direct-initializati)
-
+* [C++ tricks](http://codeforces.com/blog/entry/15643)
 * [Initialization list](https://stackoverflow.com/questions/2785612/c-what-does-the-colon-after-a-constructor-mean)
+* [Difference between copy initialization and direct initialization](https://stackoverflow.com/questions/1051379/is-there-a-difference-in-c-between-copy-initialization-and-direct-initializati)
 
 # Interesting Questions
 
 * [Clear explanation for explicit constructor](https://weblogs.asp.net/kennykerr/Explicit-Constructors)
+* [Great tutorial of type conversions](http://www.cplusplus.com/doc/tutorial/typecasting/)
 * [Q: Is pointer equal to iterator](https://stackoverflow.com/questions/30950285/iterator-pointer-or-what-is-it)
   * A: pointer is a kind of iterator and it has properties other than iterator.
 
