@@ -147,5 +147,67 @@ bool IsLetterConstructibleFromMagazine(const string& letter_text, const string& 
 }
 ```
 
+### Implement An ISBN Cache
+
+```cpp
+// n: The value of capacity
+// Time Complexity: O(1) for lookup hash table, O(1) for update the queue
+// Space Complexity: O(1)
+
+class LRUCache {
+public:
+    LRUCache(size_t capacity) {}
+    explicit LRUCache(int capacity): capacity_(capacity) {}
+    
+    int Lookup(int isbn) {
+        auto it = isbn_price_table_.find(isbn);
+        if (it == isbn_price_table_.end()) {
+            return -1;
+        }
+        int price = it->second.second;
+        MoveToFront(isbn, it);
+        return price;
+    }
+    
+    void Insert(int isbn, int price) {
+        auto it = isbn_price_table_.find(isbn);
+        if (it == isbn_price_table_.end()) {
+            MoveToFront(isbn, it);
+        } else {
+            if (isbn_price_table_.size() == capacity_) {
+                isbn_price_table_.erase(lru_queue_.back());
+                lru_queue_.pop_back();
+            }
+            lru_queue_.emplace_front(isbn);
+            isbn_price_table_[isbn] = {lru_queue_.begin(), price};
+        }
+    }
+    
+    bool Erase(int isbn) {
+        auto it = isbn_price_table_.find(isbn);
+        if (it == isbn_price_table_.end()) {
+            return false;
+        }
+        lru_queue_.erase(it->second.first);
+        isbn_price_table_.erase(it);
+        return true;
+    }
+    
+private:
+    typedef unordered_map<int, pair<list<int>::iterator, int>> Table;
+    
+    // Forces this key-value pair to move to the front
+    void MoveToFront(int isbn, const Table::iterator& it) {
+        lru_queue_.erase(it->second.first);
+        lru_queue_.emplace_front(isbn);
+        it->second.first = lru_queue_.begin();
+    }
+    
+    int capacity_;
+    Table isbn_price_table_;
+    list<int> lru_queue_;
+};
+```
+
 
 
