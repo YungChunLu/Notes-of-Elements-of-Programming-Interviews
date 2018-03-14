@@ -12,4 +12,5 @@
 * [Heaps](heaps.md)
 * [Searching](searching.md)
 * [Hash Tables](hash-tables.md)
+* [Sorting](sorting.md)
 
