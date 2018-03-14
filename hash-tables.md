@@ -147,7 +147,7 @@ bool IsLetterConstructibleFromMagazine(const string& letter_text, const string& 
 }
 ```
 
-### Implement An ISBN Cache
+### 12-3 Implement An ISBN Cache
 
 ```cpp
 // n: The value of capacity
@@ -158,7 +158,7 @@ class LRUCache {
 public:
     LRUCache(size_t capacity) {}
     explicit LRUCache(int capacity): capacity_(capacity) {}
-    
+
     int Lookup(int isbn) {
         auto it = isbn_price_table_.find(isbn);
         if (it == isbn_price_table_.end()) {
@@ -168,7 +168,7 @@ public:
         MoveToFront(isbn, it);
         return price;
     }
-    
+
     void Insert(int isbn, int price) {
         auto it = isbn_price_table_.find(isbn);
         if (it == isbn_price_table_.end()) {
@@ -182,7 +182,7 @@ public:
             isbn_price_table_[isbn] = {lru_queue_.begin(), price};
         }
     }
-    
+
     bool Erase(int isbn) {
         auto it = isbn_price_table_.find(isbn);
         if (it == isbn_price_table_.end()) {
@@ -192,21 +192,42 @@ public:
         isbn_price_table_.erase(it);
         return true;
     }
-    
+
 private:
     typedef unordered_map<int, pair<list<int>::iterator, int>> Table;
-    
+
     // Forces this key-value pair to move to the front
     void MoveToFront(int isbn, const Table::iterator& it) {
         lru_queue_.erase(it->second.first);
         lru_queue_.emplace_front(isbn);
         it->second.first = lru_queue_.begin();
     }
-    
+
     int capacity_;
     Table isbn_price_table_;
     list<int> lru_queue_;
 };
+```
+
+### 12-5 Find The Nearest Repeated Entries In An Array
+
+```cpp
+// n: The number of strings in a vector, d: The number of unique strings
+// Time Complexity: O(n)
+// Space Complexity: O(d)
+
+int FindNearestRepetition(const vector<string>& paragraph) {
+    unordered_map<string, int> word_index;
+    int distance = numeric_limits<int>::max();
+    for (int index = 0; index < paragraph.size(); index++) {
+        auto it = word_index.find(paragraph[index]);
+        if (it != word_index.end()) {
+            distance = min(distance, index - it->second);
+        }
+        word_index[paragraph[index]] = index;
+    }
+    return distance == numeric_limits<int>::max() ? -1 : distance;
+}
 ```
 
 
