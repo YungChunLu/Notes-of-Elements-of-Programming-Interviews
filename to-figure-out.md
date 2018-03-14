@@ -11,6 +11,8 @@
 * [Clear explanation for explicit constructor](https://weblogs.asp.net/kennykerr/Explicit-Constructors)
 * [Great tutorial of type conversions](http://www.cplusplus.com/doc/tutorial/typecasting/)
 * [Clear explanation for rvalue reference and move semantics](https://www.cprogramming.com/c++11/rvalue-references-and-move-semantics-in-c++11.html)
+* [Q: Why stability in sorting algorithm matters](https://stackoverflow.com/questions/1517793/what-is-stability-in-sorting-algorithms-and-why-is-it-important)
+  * A: It can useful when stacking stable sorts
 * [Q: Is pointer equal to iterator](https://stackoverflow.com/questions/30950285/iterator-pointer-or-what-is-it)
   * A: pointer is a kind of iterator and it has properties other than iterator.
 
