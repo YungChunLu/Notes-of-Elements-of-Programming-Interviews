@@ -10,7 +10,39 @@
   * If there are a small number of distinct keys, e.g., integers in the range \[0, 255\], **counting sort** works well. This count can be kept in an array or a BST.
 * Custom compare function
 
+* Heap Sort
 
+```cpp
+// n: The number of elements in input
+// Time Complexity: O(nlogn)
+// Space Complexity: O(1)
+
+void heapify(vector<int> &A, int parent_node, int size, function<bool(int, int)> f) {
+    int pivot_node = parent_node, left_node = parent_node*2+1, right_node = parent_node*2+2;
+    if (left_node < size && f(A[pivot_node], A[left_node])) {
+        pivot_node = left_node;
+    }
+    if (right_node < size && f(A[pivot_node], A[right_node])) {
+        pivot_node = right_node;
+    }
+    if (pivot_node != parent_node) {
+        swap(A[pivot_node], A[parent_node]);
+        heapify(A, pivot_node, size, f);
+    }
+}
+
+void HeapSort(vector<int> &A) {
+    // Build a max heap
+    for (int parent_node = (int)A.size()/2 - 1; parent_node >= 0; parent_node--) {
+        heapify(A, parent_node, (int)A.size(), less<int>());
+    }
+    for (int size = (int)A.size()-1; size > 0; size--) {
+        swap(A[0], A[size]);
+        // Update the max heap
+        heapify(A, 0, size, less<int>());
+    }
+}
+```
 
 * Counting Sort
 
