@@ -8,6 +8,10 @@
   * An in-place sort is one which uses $$O(1)$$ space; a stable sort is one where entries which are equal appear in their original order.
   * For short arrays, e.g., 10 or few elements, insertion sort is easier to code and faster than asymptotically superior sorting algorithms.
   * If there are a small number of distinct keys, e.g., integers in the range \[0, 255\], **counting sort** works well. This count can be kept in an array or a BST.
+* Custom compare function
+
+
+
 * Counting Sort
 
 ```cpp
