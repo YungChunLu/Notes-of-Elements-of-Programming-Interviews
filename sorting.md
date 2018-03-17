@@ -128,5 +128,37 @@ void MergeSort(vector<int> &A, int l, int r) {
 }
 ```
 
+* Quick Sort
+
+```cpp
+// n: The number of elements in input
+// Time Complexity: O(nlogn)
+// Space Complexity: O(logn) because recursive function calls
+
+int PartitionHelper(vector<int> &A, int l, int r){
+    // Pick the last item as pivot
+    int pivot_val = A[l], pivot_pos = l;
+    while (l <= r) {
+        if (A[l] > pivot_val) {
+            swap(A[l], A[r--]);
+        } else if (A[l] == pivot_val) {
+            l++;
+        } else {
+            swap(A[l++], A[pivot_pos++]);
+        }
+    }
+    return pivot_pos;
+};
+
+void QuickSort(vector<int> &A, int l, int r) {
+    if (r > l) {
+        // Get partition index
+        int idx = PartitionHelper(A, l, r);
+        QuickSort(A, l, idx-1);
+        QuickSort(A, idx+1, r);
+    }
+}
+```
+
 
 
