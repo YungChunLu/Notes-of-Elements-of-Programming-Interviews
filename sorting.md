@@ -72,5 +72,31 @@ void CountingSort(vector<int>& A) {
 }
 ```
 
+* Insertion Sort
+
+```
+// n: The number of elements in input
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)
+
+void InsertHelper(vector<int> &A, int from, int to){
+    int temp = A[from];
+    for (int i = from; i > to; i--) {
+        swap(A[i], A[i-1]);
+    }
+    A[to] = temp;
+}
+
+void InsertionSort(vector<int> &A) {
+    for (int i = 0; i < (int)A.size(); i++) {
+        int j = 0;
+        while (j < i && A[j] < A[i]) {
+            j++;
+        }
+        InsertHelper(A, i, j);
+    }
+}
+```
+
 
 
