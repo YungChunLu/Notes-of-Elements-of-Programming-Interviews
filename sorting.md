@@ -98,5 +98,35 @@ void InsertionSort(vector<int> &A) {
 }
 ```
 
+* Merge Sort
+
+```cpp
+// n: The number of elements in input
+// Time Complexity: O(n^2logn), O(n^2) for merging two sub-vectors
+// Space Complexity: O(logn) because recursive function calls
+
+void MergeHelper(vector<int> &A, int l, int m, int r) {
+    for (int i = m; i >= 0; i--) {
+        int j = i;
+        while (j < r && A[j] > A[j+1]) {
+            swap(A[j], A[j+1]);
+            j++;
+        }
+    }
+};
+
+void MergeSort(vector<int> &A, int l, int r) {
+    if (r > l) {
+        int m = l + (r - l) / 2;
+        // Sort left side
+        MergeSort(A, l, m);
+        // Sort right side
+        MergeSort(A, m+1, r);
+        // Merge two sides
+        MergeHelper(A, l, m, r);
+    }
+}
+```
+
 
 
