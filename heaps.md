@@ -122,6 +122,37 @@ vector<int> SortKIncreasingDecreasingArray(const vector<int> &A) {
 }
 ```
 
+### 10-3 Sort An Almost-Sorted Array
+
+* Author's Solution
+
+```cpp
+// n: The number of elements
+// Time Complexity: O(nlogk)
+// Space Complexity: O(k)
+
+vector<int> SortApproximatelySortedData(vector<int>::const_iterator sequence_begin,
+                                        const vector<int>::const_iterator &sequence_end,
+                                        int k) {
+    priority_queue<int, vector<int>, greater<>> min_heap;
+    vector<int> result;
+    int i = 0;
+    while (i++ <= k && sequence_begin != sequence_end) {
+        min_heap.emplace(*sequence_begin++);
+    }
+    while (sequence_begin != sequence_end) {
+        result.emplace_back(min_heap.top());
+        min_heap.pop();
+        min_heap.emplace(*sequence_begin++);
+    }
+    while (!min_heap.empty()) {
+        result.emplace_back(min_heap.top());
+        min_heap.pop();
+    }
+    return result;
+};
+```
+
 ### 10-4 Compute The K Closest Stars
 
 * Mine Solution
