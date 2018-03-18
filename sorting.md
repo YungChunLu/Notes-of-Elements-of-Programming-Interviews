@@ -220,6 +220,23 @@ vector<int> IntersectTwoSortedArrays_A(const vector<int> &A, const vector<int> &
 
 ### Merge Two Sorted Arrays
 
-* 
+* Mine Solution
+
+```cpp
+// m: The number of elements in A, n: The number of elements in B
+// Time Complexity: O(m+n)
+// Space Complexity: O(1)
+
+void MergeTwoSortedArrays(vector<int> &A, int m, vector<int> &B, int n) {
+    int write_idx = m + n - 1;
+    while (m > 0 && n > 0) {
+        A[write_idx--] = A[m-1] > B[n-1] ? A[--m] : B[--n];
+    }
+    while (n > 0) {
+        A[write_idx--] = B[--n];
+    }
+}
+```
+
 
 
