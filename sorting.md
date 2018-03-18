@@ -160,5 +160,63 @@ void QuickSort(vector<int> &A, int l, int r) {
 }
 ```
 
+### 13-1 Compute The Intersection of Two Sorted Arrays
+
+* Mine Solution
+
+```cpp
+// m: The number of elements in A, n: The number of elements in B
+// Time Complexity: O(m+n)
+// Space Complexity: O(1)
+
+vector<int> IntersectTwoSortedArrays_M(const vector<int> &A, const vector<int> &B) {
+    int i = 0, j = 0;
+    vector<int> result;
+    while (i < A.size() && j < B.size()) {
+        if (i + 1 < A.size() && A[i] == A[i+1]) {
+            i++;
+        }
+        if (j + 1 < B.size() && B[j] == B[j+1]) {
+            j++;
+        }
+        if (A[i] < B[j]) {
+            i++;
+        } else if (A[i] == B[j]){
+            result.emplace_back(A[i]);
+            i++;
+            j++;
+        } else {
+            j++;
+        }
+    }
+    return result;
+}
+```
+
+* Author's Solution
+
+```
+// m: The number of elements in A, n: The number of elements in B
+// Time Complexity: O(m+n)
+// Space Complexity: O(1)
+
+vector<int> IntersectTwoSortedArrays_A(const vector<int> &A, const vector<int> &B) {
+    int i = 0, j = 0;
+    vector<int> result;
+    while (i < A.size() && j < B.size()) {
+        if (A[i] == B[j] && (i == 0 || A[i] != A[i-1])) {
+            result.emplace_back(A[i]);
+            i++;
+            j++;
+        } else if (A[i] < B[j]) {
+            ++i;
+        } else {
+            j++;
+        }
+    }
+    return result;
+}
+```
+
 
 
