@@ -89,6 +89,39 @@ vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
 }
 ```
 
+### 10-2 Sort An Increasing-Decreasing Array
+
+* Author's Solution
+
+```cpp
+// k: The number of sub-array, n: The number of elements
+// Time Complexity: O(nlogk)
+// Space Complexity: O(k)
+
+vector<int> SortKIncreasingDecreasingArray(const vector<int> &A) {
+    // Decomposes A into a set of sorted arrays
+    vector<vector<int>> sorted_arrays;
+    typedef enum {INCREASING, DECREASING} SubarrayType;
+    SubarrayType subarray_type = INCREASING;
+    int start_idx = 0;
+    for (int i = 1; i <= A.size(); i++) {
+        if (i == A.size() ||
+            (A[i-1] >= A[i] && subarray_type == INCREASING) ||
+            (A[i-1] < A[i] && subarray_type == DECREASING)) {
+            if (subarray_type == INCREASING) {
+                sorted_arrays.emplace_back(A.cbegin() + start_idx, A.cbegin() + i);
+            } else {
+                sorted_arrays.emplace_back(A.crbegin() + A.size() - i,
+                                           A.crbegin() + A.size() - start_idx);
+            }
+            start_idx = i;
+            subarray_type = (subarray_type == INCREASING ? DECREASING : INCREASING);
+        }
+    }
+    return MergeSortedArrays(sorted_arrays);
+}
+```
+
 ### 10-4 Compute The K Closest Stars
 
 * Mine Solution
