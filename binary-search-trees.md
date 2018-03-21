@@ -41,5 +41,26 @@ bool IsBinaryTreeBST_M(const unique_ptr<BSTNode<int>> &tree) {
 }
 ```
 
+* Author's Solution
+
+```
+// n: The number of elements in input
+// Time Complexity: O(n)
+// Space Complexity: O(logn)
+
+bool AreKeysInRange(const unique_ptr<BSTNode<int>> &tree, int low_range, int high_range) {
+    if (tree == nullptr) {
+        return true;
+    } else if (tree->data < low_range || tree->data > high_range) {
+        return false;
+    }
+    return AreKeysInRange(tree->left, low_range, tree->data) && AreKeysInRange(tree->right, tree->data, high_range);
+}
+
+bool IsBinaryTreeBST_A(const unique_ptr<BSTNode<int>> &tree) {
+    return AreKeysInRange(tree, numeric_limits<int>::min(), numeric_limits<int>::max());
+}
+```
+
 
 
