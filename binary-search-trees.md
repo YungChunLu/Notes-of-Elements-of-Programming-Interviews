@@ -112,5 +112,29 @@ BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>> &tree, int k) {
 }
 ```
 
+### 14-3 Find The K Largest Elements In A BST
+
+```cpp
+// n: The number of elements in input, k: The number of required largest elements
+// Time Complexity: O(logn + k)
+// Space Complexity: O(logn)
+
+void FindKLargestInBSTHelper(const unique_ptr<BSTNode<int>> &tree, vector<int> &nodes, int k) {
+    if (tree) {
+        FindKLargestInBSTHelper(tree->right, nodes, k);
+        if (nodes.size() < k) {
+            nodes.emplace_back(tree->data);
+            FindKLargestInBSTHelper(tree->left, nodes, k);
+        }
+    }
+}
+
+vector<int> FindKLargestInBST(const unique_ptr<BSTNode<int>> &tree, int k) {
+    vector<int> nodes;
+    FindKLargestInBSTHelper(tree, nodes, k);
+    return nodes;
+}
+```
+
 
 
