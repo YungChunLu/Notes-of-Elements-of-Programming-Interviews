@@ -17,7 +17,7 @@ is greater than or equal to/ greater than the argument.
 3. equal_range(10) returns the range of values equal to the argument.
 ```
 
-### Test If A Binary Tree Satisfies The BST Property
+### 14-1 Test If A Binary Tree Satisfies The BST Property
 
 * Mine Solution
 
@@ -62,7 +62,7 @@ bool IsBinaryTreeBST_A(const unique_ptr<BSTNode<int>> &tree) {
 }
 ```
 
-### Find The First Key Greater Than A Given Value In A BST
+### 14-2 Find The First Key Greater Than A Given Value In A BST
 
 * Mine Solution
 
@@ -75,6 +75,31 @@ BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>> &tree, int k)
     BSTNode<int> *it = tree.get(), *node = nullptr;
     while (it != nullptr) {
         if (it->data > k) {
+            node = it;
+        }
+        if (it->data <= k) {
+            it = it->right.get();
+        } else {
+            it = it->left.get();
+        }
+    }
+    return node;
+}
+```
+
+### 14-2 Variant
+
+* Find the first node whose key equals to the input value
+
+```cpp
+// n: The number of elements in input
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>> &tree, int k) {
+    BSTNode<int> *it = tree.get(), *node = nullptr;
+    while (it) {
+        if (it->data == k) {
             node = it;
         }
         if (it->data <= k) {
