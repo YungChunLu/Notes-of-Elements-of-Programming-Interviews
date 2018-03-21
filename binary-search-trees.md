@@ -43,7 +43,7 @@ bool IsBinaryTreeBST_M(const unique_ptr<BSTNode<int>> &tree) {
 
 * Author's Solution
 
-```
+```cpp
 // n: The number of elements in input
 // Time Complexity: O(n)
 // Space Complexity: O(logn)
@@ -59,6 +59,31 @@ bool AreKeysInRange(const unique_ptr<BSTNode<int>> &tree, int low_range, int hig
 
 bool IsBinaryTreeBST_A(const unique_ptr<BSTNode<int>> &tree) {
     return AreKeysInRange(tree, numeric_limits<int>::min(), numeric_limits<int>::max());
+}
+```
+
+### Find The First Key Greater Than A Given Value In A BST
+
+* Mine Solution
+
+```cpp
+// n: The number of elements in input
+// Time Complexity: O(logn)
+// Space Complexity: O(1)
+
+BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>> &tree, int k) {
+    BSTNode<int> *it = tree.get(), *node = nullptr;
+    while (it != nullptr) {
+        if (it->data > k) {
+            node = it;
+        }
+        if (it->data <= k) {
+            it = it->right.get();
+        } else {
+            it = it->left.get();
+        }
+    }
+    return node;
 }
 ```
 
