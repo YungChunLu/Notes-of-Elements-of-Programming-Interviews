@@ -16,6 +16,8 @@
 * [How to prove the max heigh of a red-black tree](http://doctrina.org/maximum-height-of-red-black-tree.html)
 * [Friend and Inheritance](http://www.cplusplus.com/doc/tutorial/inheritance/)
   * friend grants access to to **private and protected** members
+  * friendships are never corresponded unless specified: A is a friend of B, but B may not be a friend of A
+  * friendships are not transitive: A friend of a friend is not a friend.
 * [Q: Why stability in sorting algorithm matters](https://stackoverflow.com/questions/1517793/what-is-stability-in-sorting-algorithms-and-why-is-it-important)
   * A: It can useful when stacking stable sorts
 * [Q: Is pointer equal to iterator](https://stackoverflow.com/questions/30950285/iterator-pointer-or-what-is-it)
