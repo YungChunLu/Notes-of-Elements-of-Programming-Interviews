@@ -17,6 +17,12 @@ is greater than or equal to/ greater than the argument.
 3. equal_range(10) returns the range of values equal to the argument.
 ```
 
+### Red Black Tree
+
+* [Pseudo code from Wiki](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+* [Advanced topic about RB tree](http://eternallyconfuzzled.com/tuts/datastructures/jsw_tut_rbtree.aspx)
+* [RB tree from Princeton University](http://cplusplus.kurttest.com/notes/llrb.html)
+
 ### 14-1 Test If A Binary Tree Satisfies The BST Property
 
 * Mine Solution
