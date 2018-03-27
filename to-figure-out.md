@@ -14,6 +14,7 @@
 * [For overloading operators, the difference between member function and non-member function](https://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
 * [Simple lambda function in C++11](https://en.wikipedia.org/wiki/Anonymous_function#C.2B.2B)
 * [How to prove the max heigh of a red-black tree](http://doctrina.org/maximum-height-of-red-black-tree.html)
+* [Cheat sheet of red-black tree](http://www.stolerman.net/studies/cs521/red_black_trees.pdf)
 * [Friend and Inheritance](http://www.cplusplus.com/doc/tutorial/inheritance/)
   * friend grants access to to **private and protected** members
   * friendships are never corresponded unless specified: A is a friend of B, but B may not be a friend of A
