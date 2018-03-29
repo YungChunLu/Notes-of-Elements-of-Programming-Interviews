@@ -13,7 +13,9 @@
 * [Clear explanation for rvalue reference and move semantics](https://www.cprogramming.com/c++11/rvalue-references-and-move-semantics-in-c++11.html)
 * [For overloading operators, the difference between member function and non-member function](https://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
 * [Simple lambda function in C++11](https://en.wikipedia.org/wiki/Anonymous_function#C.2B.2B)
-* [How to prove the max heigh of a red-black tree](http://doctrina.org/maximum-height-of-red-black-tree.html)
+* Red Black Tree
+  * [How to prove the max heigh of a red-black tree](http://doctrina.org/maximum-height-of-red-black-tree.html)
+  * [Best tutorial on red-black tree](http://eternallyconfuzzled.com/tuts/datastructures/jsw_tut_rbtree.aspx)
 * [Cheat sheet of red-black tree](http://www.stolerman.net/studies/cs521/red_black_trees.pdf)
 * [Friend and Inheritance](http://www.cplusplus.com/doc/tutorial/inheritance/)
   * friend grants access to to **private and protected** members
