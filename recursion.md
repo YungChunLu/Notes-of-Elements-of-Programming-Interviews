@@ -17,17 +17,24 @@
 
 ### 15-1 The Towers Of Hanoi Problem
 
+* Author's Solution
+
 ```cpp
 // n: The number of rings
 // Time Complexity: O(2^n)
 // Space Complexity: O(n)
 
+int MoveHanoiRing(array<stack<int>, kNumPegs> &pegs, int from_peg, int to_peg) {
+    int ring = pegs[from_peg].top();
+    pegs[from_peg].pop();
+    pegs[to_peg].push(ring);
+    return ring;
+}
+
 void ComputeTowerHanoiHelper (int num_rings_to_move, array<stack<int>, kNumPegs> &pegs, int from_peg, int to_peg, int use_peg, vector<vector<int>> *result_ptr){
     if (num_rings_to_move > 0) {
         ComputeTowerHanoiHelper(num_rings_to_move-1, pegs, from_peg, use_peg, to_peg, result_ptr);
-        int ring = pegs[from_peg].top();
-        pegs[from_peg].pop();
-        pegs[to_peg].push(ring);
+        int ring = MoveHanoiRing(pegs, from_peg, to_peg);
         result_ptr->emplace_back(vector<int>{ring, from_peg, to_peg});
         ComputeTowerHanoiHelper(num_rings_to_move-1, pegs, use_peg, to_peg, from_peg, result_ptr);
     }
@@ -44,6 +51,12 @@ vector<vector<int>> ComputeTowerHanoi (int num_rings) {
     return result;
 }
 ```
+
+### 15-1 Variant
+
+* Solve the same problem without using recursion
+
+
 
 
 
