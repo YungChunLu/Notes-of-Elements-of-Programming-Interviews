@@ -24,30 +24,37 @@
 // Time Complexity: O(2^n)
 // Space Complexity: O(n)
 
-int MoveHanoiRing(array<stack<int>, kNumPegs> &pegs, int from_peg, int to_peg) {
+void MoveHanoiRing(array<stack<int>, kNumPegs> &pegs, int from_peg, int to_peg,
+                  vector<vector<int>> *result_ptr) {
+    if ((pegs[from_peg].size() == 0) ||
+        (pegs[to_peg].size() > 0 && pegs[from_peg].top() > pegs[to_peg].top())) {
+        swap(from_peg, to_peg);
+    }
     int ring = pegs[from_peg].top();
     pegs[from_peg].pop();
     pegs[to_peg].push(ring);
-    return ring;
+    result_ptr->emplace_back(vector<int>{ring, from_peg, to_peg});
 }
 
-void ComputeTowerHanoiHelper (int num_rings_to_move, array<stack<int>, kNumPegs> &pegs, int from_peg, int to_peg, int use_peg, vector<vector<int>> *result_ptr){
+void ComputeTowerHanoiRecursive (int num_rings_to_move, array<stack<int>, kNumPegs> &pegs,
+                                 int from_peg, int to_peg, int use_peg,
+                                 vector<vector<int>> *result_ptr){
     if (num_rings_to_move > 0) {
-        ComputeTowerHanoiHelper(num_rings_to_move-1, pegs, from_peg, use_peg, to_peg, result_ptr);
-        int ring = MoveHanoiRing(pegs, from_peg, to_peg);
-        result_ptr->emplace_back(vector<int>{ring, from_peg, to_peg});
-        ComputeTowerHanoiHelper(num_rings_to_move-1, pegs, use_peg, to_peg, from_peg, result_ptr);
+        ComputeTowerHanoiRecursive(num_rings_to_move-1, pegs, from_peg, use_peg, to_peg, result_ptr);
+        MoveHanoiRing(pegs, from_peg, to_peg, result_ptr);
+        ComputeTowerHanoiRecursive(num_rings_to_move-1, pegs, use_peg, to_peg, from_peg, result_ptr);
     }
 }
 
-vector<vector<int>> ComputeTowerHanoi (int num_rings) {
+vector<vector<int>> ComputeTowerHanoi (int num_rings,
+                                       function<void(int, array<stack<int>, kNumPegs>&, int, int, int, vector<vector<int>>*)> f) {
     array<stack<int>, kNumPegs> pegs;
     // Initialize pegs
     for (int i = num_rings; i > 0; i--) {
         pegs[0].push(i);
     }
     vector<vector<int>> result;
-    ComputeTowerHanoiHelper(num_rings, pegs, 0, 1, 2, &result);
+    f(num_rings, pegs, 0, 1, 2, &result);
     return result;
 }
 ```
@@ -56,7 +63,26 @@ vector<vector<int>> ComputeTowerHanoi (int num_rings) {
 
 * Solve the same problem without using recursion
 
-
+```
+void ComputeTowerHanoiIterative(int num_rings_to_move, array<stack<int>, kNumPegs> &pegs,
+                                int from_peg, int to_peg, int use_peg,
+                                vector<vector<int>> *result_ptr) {
+    int step = 0, dst_pos = to_peg;
+    if (pegs[from_peg].size() % 2 == 0) {
+        swap(to_peg, use_peg);
+    }
+    while (pegs[dst_pos].size() != num_rings_to_move) {
+        if (step % 3 == 0) {
+            MoveHanoiRing(pegs, from_peg, to_peg, result_ptr);
+        } else if (step % 3 == 1) {
+            MoveHanoiRing(pegs, from_peg, use_peg, result_ptr);
+        } else {
+            MoveHanoiRing(pegs, to_peg, use_peg, result_ptr);
+        }
+        step += 1;
+    }
+}
+```
 
 
 
