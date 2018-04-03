@@ -63,7 +63,7 @@ vector<vector<int>> ComputeTowerHanoi (int num_rings,
 
 * Solve the same problem without using recursion
 
-```
+```cpp
 void ComputeTowerHanoiIterative(int num_rings_to_move, array<stack<int>, kNumPegs> &pegs,
                                 int from_peg, int to_peg, int use_peg,
                                 vector<vector<int>> *result_ptr) {
@@ -80,6 +80,22 @@ void ComputeTowerHanoiIterative(int num_rings_to_move, array<stack<int>, kNumPeg
             MoveHanoiRing(pegs, to_peg, use_peg, result_ptr);
         }
         step += 1;
+    }
+}
+```
+
+* Find the minimum number of operations subject to the constraint that each operation must involve P3. The number of operations is double than the normal one.
+
+```cpp
+
+void ComputeTowerHanoiRecursive_Constraint1 (int num_rings_to_move, array<stack<int>, kNumPegs> &pegs,
+                                             int from_peg, int to_peg, int use_peg,
+                                             vector<vector<int>> *result_ptr){
+    if (num_rings_to_move > 0) {
+        ComputeTowerHanoiRecursive_Constraint1(num_rings_to_move-1, pegs, from_peg, to_peg, use_peg, result_ptr);
+        MoveHanoiRing(pegs, from_peg, use_peg, result_ptr);
+        ComputeTowerHanoiRecursive_Constraint1(num_rings_to_move-1, pegs, to_peg, from_peg, use_peg, result_ptr);
+        MoveHanoiRing(pegs, use_peg, to_peg, result_ptr);
     }
 }
 ```
