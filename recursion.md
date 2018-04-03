@@ -127,5 +127,29 @@ void ComputeTowerHanoiRecursive_Constraint2 (int num_rings_to_move, array<stack<
 }
 ```
 
+* Fin
+
+```cpp
+// n: The number of rings
+// Time Complexity: O(3^n)
+// Space Complexity: O(n)
+
+void ComputeTowerHanoiRecursive_Constraint3 (int num_rings_to_move, array<stack<int>, kNumPegs> &pegs,
+                                             int from_peg, int to_peg, int use_peg,
+                                             vector<vector<int>> *result_ptr){
+    if (num_rings_to_move > 0) {
+        ComputeTowerHanoiRecursive_Constraint3(num_rings_to_move-1, pegs, from_peg, to_peg, use_peg, result_ptr);
+        if (from_peg > to_peg) {
+            MoveHanoiRing(pegs, from_peg, to_peg, result_ptr);
+        } else {
+            MoveHanoiRing(pegs, from_peg, use_peg, result_ptr);
+            ComputeTowerHanoiRecursive_Constraint3(num_rings_to_move-1, pegs, to_peg, from_peg, use_peg, result_ptr);
+            MoveHanoiRing(pegs, use_peg, to_peg, result_ptr);
+        }
+        ComputeTowerHanoiRecursive_Constraint3(num_rings_to_move-1, pegs, from_peg, to_peg, use_peg, result_ptr);
+    }
+}
+```
+
 
 
