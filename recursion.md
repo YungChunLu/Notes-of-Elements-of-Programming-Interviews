@@ -191,5 +191,50 @@ vector<vector<int>> ComputeDisk (int num_size_to_move) {
 }
 ```
 
+### 15-2 Generate All Non Attacking Placements Of N-Queens
+
+* Author's Solution
+
+```cpp
+// n: The number of queen
+// Time Complexity: O(n!/c^n), c is close to 2.54
+// Space Complexity: O(n)
+
+bool IsValid(const vector<int> &col_placement){
+    // Test if a newly placed queen will conflict any earlier queens placed before.
+    int last_idx = (int)col_placement.size() - 1;
+    for (int prev_idx = 0; prev_idx < last_idx; prev_idx++) {
+        int diff = abs(col_placement[prev_idx] - col_placement[last_idx]);
+        if (diff == 0 || diff == last_idx - prev_idx) {
+            // A column or diagonal constraint is violated
+            return false;
+        }
+    }
+    return true;
+}
+
+void SolveNQueens(int n, int row, vector<int> *col_placement,
+                  vector<vector<int>> *result) {
+    if (row == n) {
+        // All queens are legally placed
+        result->emplace_back(*col_placement);
+    } else {
+        for (int col = 0; col < n; col++) {
+            col_placement->emplace_back(col);
+            if (IsValid(*col_placement)) {
+                SolveNQueens(n, row + 1, col_placement, result);
+            }
+            col_placement->pop_back();
+        }
+    }
+}
+
+vector<vector<int>> NQueens(int n) {
+    vector<vector<int>> result;
+    SolveNQueens(n, 0, make_unique<vector<int>>().get(), &result);
+    return result;
+}
+```
+
 
 
