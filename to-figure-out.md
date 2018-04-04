@@ -1,3 +1,5 @@
+# Wait to read
+
 * [What is **copy-and-swap** idiom?](https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom)
 * [Why C++ Supports both Class and Typename for Type Parameters](https://web.archive.org/web/20060619131004/http://blogs.msdn.com/slippman/archive/2004/08/11/212768.aspx)
 * [Difference between each casting methods](https://stackoverflow.com/questions/28002/regular-cast-vs-static-cast-vs-dynamic-cast)
@@ -5,6 +7,9 @@
 * [C++ tricks](http://codeforces.com/blog/entry/15643)
 * [Initialization list](https://stackoverflow.com/questions/2785612/c-what-does-the-colon-after-a-constructor-mean)
 * [Difference between copy initialization and direct initialization](https://stackoverflow.com/questions/1051379/is-there-a-difference-in-c-between-copy-initialization-and-direct-initializati)
+* 15-2 variant - Compute the smallest number of queens that can be placed to attack each uncovered square
+  * [Forum discussion](https://stackoverflow.com/questions/39196741/how-can-you-compute-the-smallest-number-of-queens-that-can-be-placed-to-attack-e)
+  * [Tutorial paper](https://www.sciencedirect.com/science/article/pii/S0166218X09003722)
 
 # Interesting Questions
 
