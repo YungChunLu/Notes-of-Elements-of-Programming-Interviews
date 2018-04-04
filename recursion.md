@@ -127,7 +127,7 @@ void ComputeTowerHanoiRecursive_Constraint2 (int num_rings_to_move, array<stack<
 }
 ```
 
-* Fin
+* Find the minimum number of operations subject to the constraint that a ring can never be transferred directly from P1 to P2.
 
 ```cpp
 // n: The number of rings
