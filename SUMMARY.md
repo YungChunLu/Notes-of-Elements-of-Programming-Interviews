@@ -15,5 +15,5 @@
 * [Sorting](sorting.md)
 * [Binary Search Trees](binary-search-trees.md)
 * [Recursion](recursion.md)
-* Dynamic Programming
+* [Dynamic Programming](dynamic-programming.md)
 
