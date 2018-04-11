@@ -34,5 +34,62 @@ int FindMaximumSubarray(const vector<int>& A) {
 }
 ```
 
+### 16-1 Count The Number Of Score Combinations
+
+* Mine Solution
+
+```cpp
+// n: The number of play scores, s: The value of final score
+// Time Complexity: O(sn)
+// Space Complexity: O(sn)
+
+int NumCombinationsForFinalScore_M(int final_score, const vector<int>& individual_play_scores) {
+    vector<vector<int>> num_combinations_for_score(individual_play_scores.size(),
+                                                   vector<int>(final_score+1, 0));
+    if (individual_play_scores.size() == 0) {
+        return 0;
+    }
+    // Initialize the first row
+    for (int score = 0; score <= final_score; score++) {
+        int play_score = individual_play_scores[0];
+        if (score % play_score == 0) {
+            num_combinations_for_score[0][score] = 1;
+        }
+    }
+    for (int score = 0; score <= final_score; score++) {
+        for (int play_index = 1; play_index < individual_play_scores.size(); play_index++) {
+            int play_score = individual_play_scores[play_index];
+            num_combinations_for_score[play_index][score] = num_combinations_for_score[play_index-1][score];
+            if (score - play_score >= 0) {
+                num_combinations_for_score[play_index][score] += num_combinations_for_score[play_index][score - play_score];
+            }
+        }
+    }
+    return num_combinations_for_score[individual_play_scores.size()-1][final_score];
+}
+```
+
+* Author's Solution
+
+```cpp
+// n: The number of play scores, s: The value of final score
+// Time Complexity: O(sn)
+// Space Complexity: O(sn)
+
+int NumCombinationsForFinalScore_A(int final_score, const vector<int>& individual_play_scores) {
+    vector<vector<int>> num_combinations_for_score(individual_play_scores.size(),
+                                                   vector<int>(final_score+1, 0));
+    for (int i = 0; i < individual_play_scores.size(); i++) {
+        for (int j = 0; j <= final_score; j++) {
+            int without_this_play = i >= 1 ? num_combinations_for_score[i-1][j] : 0;
+            int this_play = individual_play_scores[i];
+            int with_this_play = j >= this_play ? num_combinations_for_score[i][j-this_play] : 0;
+            num_combinations_for_score[i][j] = with_this_play + without_this_play;
+        }
+    }
+    return num_combinations_for_score.back().back();
+}
+```
+
 
 
