@@ -114,5 +114,42 @@ int NumCombinationsForFinalScoreReduced(int final_score, const vector<int>& indi
 }
 ```
 
+* Write a problem returning the sequences of plays
+
+```cpp
+// n: The number of play scores, s: The value of final score
+// Time Complexity: O(sn)
+// Space Complexity: O(sn)
+
+vector<vector<int>> CombinationsForFinalScoreHelper(int score, const vector<int> &play_scores,
+                                                    unordered_map<int, vector<vector<int>>> &cached_combinations) {
+    if (score < play_scores[0]) {
+        return {};
+    }
+    if (cached_combinations.find(score) == cached_combinations.end()) {
+        vector<vector<int>> total_combinations = {};
+        for (int play_score : play_scores) {
+            vector<vector<int>> combinations = CombinationsForFinalScoreHelper(score - play_score, play_scores,
+                                                                               cached_combinations);
+            for (vector<int> combination : combinations) {
+                combination.push_back(play_score);
+                total_combinations.push_back(combination);
+            }
+        }
+        cached_combinations[score] = total_combinations;
+    }
+    return cached_combinations[score];
+}
+
+vector<vector<int>> CombinationsForFinalScore(int final_score, vector<int> individual_play_scores) {
+    sort(individual_play_scores.begin(), individual_play_scores.end());
+    unordered_map<int, vector<vector<int>>> cached_combinations;
+    for (int play_score : individual_play_scores) {
+        cached_combinations[play_score] = vector<vector<int>>({{play_score}});
+    }
+    return CombinationsForFinalScoreHelper(final_score, individual_play_scores, cached_combinations);
+}
+```
+
 
 
