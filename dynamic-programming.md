@@ -91,5 +91,28 @@ int NumCombinationsForFinalScore_A(int final_score, const vector<int>& individua
 }
 ```
 
+### 16-1 Variant
+
+* Solve the same problem using O\(s\) space.
+
+```cpp
+// n: The number of play scores, s: The value of final score
+// Time Complexity: O(sn)
+// Space Complexity: O(s)
+
+int NumCombinationsForFinalScoreReduced(int final_score, const vector<int>& individual_play_scores) {
+    vector<int> num_combinations_for_score(vector<int>(final_score+1, 0));
+    num_combinations_for_score[0] = 1;
+    for (int i = 0; i < individual_play_scores.size(); i++) {
+        for (int j = 0; j <= final_score; j++) {
+            int this_play = individual_play_scores[i];
+            int with_this_play = j >= this_play ? num_combinations_for_score[j-this_play] : 0;
+            num_combinations_for_score[j] += with_this_play;
+        }
+    }
+    return num_combinations_for_score.back();
+}
+```
+
 
 
