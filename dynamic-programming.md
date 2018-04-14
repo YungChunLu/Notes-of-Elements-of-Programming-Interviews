@@ -118,8 +118,9 @@ int NumCombinationsForFinalScoreReduced(int final_score, const vector<int>& indi
 
 ```cpp
 // n: The number of play scores, s: The value of final score
-// Time Complexity: O(sn)
-// Space Complexity: O(sn)
+// Time Complexity: O(sn+nlogn)
+// Space Complexity: O(s)
+
 vector<vector<int>> CombinationsForFinalScoreHelper(int score, const vector<int> &play_scores,
                                                     unordered_map<int, vector<vector<int>>> &cached_combinations) {
     if (score < 0) {
@@ -148,6 +149,55 @@ vector<vector<int>> CombinationsForFinalScore(int final_score, vector<int> indiv
         cached_combinations[play_score] = CombinationsForFinalScoreHelper(play_score, individual_play_scores, cached_combinations);
     }
     return CombinationsForFinalScoreHelper(final_score, individual_play_scores, cached_combinations);
+}
+```
+
+* Compute the number of distinct scoring sequences in the form \(s, s'\)
+
+```cpp
+// n: The number of play scores, s, p: The score of each team
+// Time Complexity: O(sn+pn+nlogn)
+// Space Complexity: O(sp)
+
+
+typedef tuple<int, int> team_score;
+struct key_hash : public unary_function<team_score, size_t>
+{
+    size_t operator()(const team_score& k) const
+    {
+        return get<0>(k) ^ get<1>(k);
+    }
+};
+typedef unordered_map<const team_score, int, key_hash> team_score_cached;
+
+int NumCombinationsForTeamsHelper(team_score team_scores, vector<int> &individual_play_scores,
+                                  team_score_cached cached_combinations){
+    int teamA = get<0>(team_scores), teamB = get<1>(team_scores);
+    if (teamA < 0 || teamB < 0) {
+        return 0;
+    }
+    if (cached_combinations.find(team_scores) == cached_combinations.end()) {
+        int total_combinations = 0;
+        for (int play_score : individual_play_scores) {
+            team_score score1 = {teamA-play_score, teamB}, score2 = {teamA, teamB-play_score};
+            total_combinations += NumCombinationsForTeamsHelper(score1, individual_play_scores, cached_combinations);
+            total_combinations += NumCombinationsForTeamsHelper(score2, individual_play_scores, cached_combinations);
+        }
+        cached_combinations[team_scores] = total_combinations;
+    }
+    return cached_combinations[team_scores];
+}
+
+int NumCombinationsForTeams(team_score team_scores, vector<int> individual_play_scores) {
+    sort(individual_play_scores.begin(), individual_play_scores.end());
+    team_score_cached cached_combinations;
+    cached_combinations[{0, 0}] = 1;
+    for (int play_score : individual_play_scores) {
+        team_score score1 = {play_score, 0}, score2 = {0, play_score};
+        cached_combinations[score1] = NumCombinationsForTeamsHelper(score1, individual_play_scores, cached_combinations);
+        cached_combinations[score2] = NumCombinationsForTeamsHelper(score2, individual_play_scores, cached_combinations);
+    }
+    return NumCombinationsForTeamsHelper(team_scores, individual_play_scores, cached_combinations);
 }
 ```
 
