@@ -171,7 +171,7 @@ struct key_hash : public unary_function<team_score, size_t>
 typedef unordered_map<const team_score, int, key_hash> team_score_cached;
 
 int NumCombinationsForTeamsHelper(team_score team_scores, vector<int> &individual_play_scores,
-                                  team_score_cached cached_combinations){
+                                  team_score_cached &cached_combinations){
     int teamA = get<0>(team_scores), teamB = get<1>(team_scores);
     if (teamA < 0 || teamB < 0) {
         return 0;
@@ -198,6 +198,52 @@ int NumCombinationsForTeams(team_score team_scores, vector<int> individual_play_
         cached_combinations[score2] = NumCombinationsForTeamsHelper(score2, individual_play_scores, cached_combinations);
     }
     return NumCombinationsForTeamsHelper(team_scores, individual_play_scores, cached_combinations);
+}
+```
+
+* Compute the maximum number of times the team that lead could have changed
+
+```cpp
+typedef unordered_map<const team_score, int, key_hash> lead_team_changes_cached;
+
+int NumChangesForLeadTeamHelper(team_score team_scores, vector<int> &individual_play_scores,
+                                lead_team_changes_cached &cached_changes){
+    int teamA = get<0>(team_scores), teamB = get<1>(team_scores);
+    if (teamA < 0 || teamB < 0) {
+        return -1;
+    }
+    if (cached_changes.find(team_scores) == cached_changes.end()) {
+        int max_changes = -1, changes = -1;
+        for (int play_score : individual_play_scores) {
+            changes = NumChangesForLeadTeamHelper({teamA-play_score, teamB}, individual_play_scores, cached_changes);
+            if (changes >= 0 & teamA > teamB & teamA-play_score < teamB) {
+                changes++;
+            }
+            max_changes = max(max_changes, changes);
+            changes = NumChangesForLeadTeamHelper({teamA, teamB-play_score}, individual_play_scores, cached_changes);
+            if (changes >= 0 & teamA < teamB & teamA > teamB-play_score) {
+                changes++;
+            }
+            max_changes = max(max_changes, changes);
+        }
+        cached_changes[team_scores] = max_changes;
+    }
+    return cached_changes[team_scores];
+}
+
+int NumChangesForLeadTeam(team_score team_scores, vector<int> individual_play_scores) {
+    lead_team_changes_cached cached_changes;
+    cached_changes[{0, 0}] = 0;
+    for (int play_score : individual_play_scores) {
+        team_score score1 = {play_score, 0}, score2 = {0, play_score};
+        cached_changes[score1] = 0;
+        cached_changes[score2] = 0;
+    }
+    int result = NumChangesForLeadTeamHelper(team_scores, individual_play_scores, cached_changes);
+    for (auto it : cached_changes) {
+        cout << get<0>(it.first) << ", " << get<1>(it.first) << ": " << it.second << endl;
+    }
+    return result;
 }
 ```
 
