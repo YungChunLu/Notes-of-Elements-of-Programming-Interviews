@@ -204,6 +204,10 @@ int NumCombinationsForTeams(team_score team_scores, vector<int> individual_play_
 * Compute the maximum number of times the team that lead could have changed
 
 ```cpp
+// n: The number of play scores, s, p: The score of each team
+// Time Complexity: O(sn+pn)
+// Space Complexity: O(sp)
+
 typedef unordered_map<const team_score, int, key_hash> lead_team_changes_cached;
 
 int NumChangesForLeadTeamHelper(team_score team_scores, vector<int> &individual_play_scores,
@@ -244,6 +248,28 @@ int NumChangesForLeadTeam(team_score team_scores, vector<int> individual_play_sc
         cout << get<0>(it.first) << ", " << get<1>(it.first) << ": " << it.second << endl;
     }
     return result;
+}
+```
+
+* Compute the number of ways to climb stairs
+
+```cpp
+// n: The number of stairs, k: The number of steps can use
+// Time Complexity: O(n)
+// Space Complexity: O(k)
+
+int NumWaysForClimbing(int n_stairs, int k_steps) {
+    list<int> cached_steps(k_steps-1);
+    cached_steps.emplace_back(1);
+    for (int stair = 1; stair <= n_stairs; stair++) {
+        int next_steps = 0;
+        for (int step : cached_steps) {
+            next_steps += step;
+        }
+        cached_steps.pop_front();
+        cached_steps.push_back(next_steps);
+    }
+    return cached_steps.back();
 }
 ```
 
